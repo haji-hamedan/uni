@@ -1,0 +1,10 @@
+@CHARSET "utf-8";
+
+*{
+	direction: rtl;
+	font-family: tahoma !important;
+}
+
+body{
+	background-color: #e3e3e3;
+}
