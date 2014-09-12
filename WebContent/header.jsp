@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@page import="com.hajihamedan.loan.controller.*"%>
+<%@page import="com.hajihamedan.loan.model.*"%>
 <%@page import="java.util.*"%>
 
 <html lang="fa">

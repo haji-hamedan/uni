@@ -26,45 +26,49 @@ public class Front extends HttpServlet {
 			String className;
 			String methodName;
 
-			try {
-				int dotPosition = path.indexOf(".");
-				className = path.substring(0, dotPosition);
+			// main page of application
+			if (pathLength == 0) {
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} else {
 
-				if (dotPosition == pathLength - 1) {
+				try {
+					int dotPosition = path.indexOf(".");
+					className = path.substring(0, dotPosition);
+
+					if (dotPosition == pathLength - 1) {
+						methodName = "index";
+					} else {
+						methodName = path.substring(dotPosition + 1, pathLength);
+					}
+				} catch (StringIndexOutOfBoundsException e) {
+					className = path.substring(0, pathLength);
 					methodName = "index";
-				} else {
-					methodName = path.substring(dotPosition + 1, pathLength);
 				}
-			} catch (StringIndexOutOfBoundsException e) {
-				className = path.substring(1, pathLength);
-				methodName = "index";
-			}
 
-			Class<?> ctrlClass = Class
-					.forName("com.hajihamedan.loan.controller." + className);
+				Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller."
+						+ className);
 
-			Method m = ctrlClass.getMethod(methodName,
-					HttpServletRequest.class, HttpServletResponse.class);
+				Method m = ctrlClass.getMethod(methodName, HttpServletRequest.class,
+						HttpServletResponse.class);
 
-			String forward = (String) m.invoke(ctrlClass.newInstance(),
-					request, response);
+				String forward = (String) m.invoke(ctrlClass.newInstance(), request,
+						response);
 
-			if (forward.length() != 0) {
-				request.getRequestDispatcher(forward)
-						.forward(request, response);
+				if (forward != null) {
+					request.getRequestDispatcher(forward).forward(request, response);
+				}
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("message", e.toString());
-			request.getRequestDispatcher("error.jsp")
-					.forward(request, response);
-
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 }
