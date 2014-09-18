@@ -27,3 +27,17 @@
 
 </head>
 <body>
+
+	<div data-magellan-expedition="fixed">
+		<dl class="sub-nav">
+			<dd>
+				<a href="<%=request.getContextPath()%>">خانه</a>
+			</dd>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
+			</dd>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Loans.showAll">مشاهده وام ها</a>
+			</dd>
+		</dl>
+	</div>

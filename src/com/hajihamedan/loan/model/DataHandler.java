@@ -12,8 +12,8 @@ public class DataHandler {
 	 */
 	private static DataHandler instance;
 	private final String jdbcUrl = "jdbc:oracle:thin:@localhost";
-	private final String username = "system";
-	private final String password = "admin";
+	private final String username = "admin";
+	private final String password = "123456";
 	private static Connection conn;
 	private Statement statement;
 
@@ -32,24 +32,32 @@ public class DataHandler {
 		return instance;
 	}
 
-	public ResultSet query(String query) throws SQLException {
+	public ResultSet query(String query) throws Exception {
 		/**
 		 * Give String argument as a query and execute that. Return result as
 		 * ResultSet object.
 		 */
-		statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+
+		statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_READ_ONLY);
 		ResultSet result = statement.executeQuery(query);
 		return result;
 	}
 
-	public ResultSet select(String tableName) throws SQLException {
+	public ResultSet select(String tableName) throws Exception {
 		String query = "SELECT * FROM " + tableName;
 		return this.query(query);
 	}
 
+	public ResultSet select(String tableName, String orderColumn, String order)
+			throws Exception {
+		String query = "SELECT * FROM " + tableName + " ORDER BY " + orderColumn
+				+ " " + order;
+		return this.query(query);
+	}
+
 	public ResultSet insert(String tableName, String[] columns, String[] values)
-			throws SQLException {
+			throws Exception {
 		String query = "INSERT INTO " + tableName + " (";
 		for (String column : columns) {
 			query += column + ",";
@@ -57,11 +65,24 @@ public class DataHandler {
 		query = query.substring(0, (query.length() - 1));
 		query += ") VALUES (";
 		for (String value : values) {
-			query += value + ", ";
+			query += value + ",";
 		}
 		query = query.substring(0, (query.length() - 1));
-		query += ")";
+		query += ");";
+
 		return this.query(query);
 	}
 
+	public ResultSet update(String tableName, String[] columns, String[] values,
+			int idIndex) throws Exception {
+
+		String query = "UPDATE " + tableName + " SET ";
+		for (int i = 0; i < columns.length; i++) {
+			query += columns[i] + "=" + values[i] + ", ";
+		}
+		query = query.substring(0, (query.length() - 1));
+		query += " WHERE " + columns[idIndex] + "=" + values[idIndex];
+
+		return this.query(query);
+	}
 }

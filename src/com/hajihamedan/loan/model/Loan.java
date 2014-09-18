@@ -8,8 +8,8 @@ public class Loan extends Domain {
 	private byte interestRate;
 	private short paymentCount;
 	private byte paymentFrequency;
-	private String firstPaymentDate;
-	private String createDate;
+	private long firstPaymentDate;
+	private long createDate;
 	private int userId;
 
 	public static final int YEARLY_PAYMENT = 1;
@@ -131,31 +131,31 @@ public class Loan extends Domain {
 	/**
 	 * @return the firstPaymentDate
 	 */
-	public String getFirstPaymentDate() {
+	public long getFirstPaymentDate() {
 		return firstPaymentDate;
 	}
 
 	/**
-	 * @param firstPaymentDate
+	 * @param today
 	 *          the firstPaymentDate to set
 	 */
-	public void setFirstPaymentDate(String firstPaymentDate) {
-		this.firstPaymentDate = firstPaymentDate;
+	public void setFirstPaymentDate(long today) {
+		this.firstPaymentDate = today;
 	}
 
 	/**
 	 * @return the createDate
 	 */
-	public String getCreateDate() {
+	public long getCreateDate() {
 		return createDate;
 	}
 
 	/**
-	 * @param createDate
+	 * @param today
 	 *          the createDate to set
 	 */
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(long today) {
+		this.createDate = today;
 	}
 
 	/**

@@ -1,8 +1,7 @@
 package com.hajihamedan.loan.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +10,12 @@ import com.hajihamedan.loan.helper.Security;
 import com.hajihamedan.loan.helper.Validation;
 import com.hajihamedan.loan.model.Loan;
 import com.hajihamedan.loan.model.LoanRepo;
+import com.sun.jmx.snmp.Timestamp;
 
 public class Loans {
 
-	public String index(HttpServletRequest request, HttpServletResponse response) {
+	public String index(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		return this.showAll(request, response);
 	}
 
@@ -69,7 +70,7 @@ public class Loans {
 			byte paymentFrequency = Byte.parseByte(inputPaymentFrequency);
 			String firstPaymentDate = inputFirstPaymentDate;
 
-			String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			long today = new Timestamp().getDateTime();
 
 			Loan newLoan = new Loan();
 			newLoan.setTitle(title);
@@ -81,13 +82,12 @@ public class Loans {
 			newLoan.setUserId(userId);
 			newLoan.setCreateDate(today);
 
-			LoanRepo loanRepo = new LoanRepo();
-
 			try {
-				loanRepo.persist(newLoan);
+				newLoan.persist();
 			} catch (Exception e) {
 				status = "error";
 				message = e.getMessage();
+				e.printStackTrace();
 			}
 
 			if (status == "success") {
@@ -98,10 +98,14 @@ public class Loans {
 		return null;
 	}
 
-	public String showAll(HttpServletRequest request, HttpServletResponse response) {
+	public String showAll(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		LoanRepo loanRepo = new LoanRepo();
+		Vector<Object> loans = loanRepo.loadAll();
 
 		request.setAttribute("pageTitle", "نمایش وام ها");
-		request.setAttribute("message", "سلام ");
+		request.setAttribute("loans", loans);
 		return "showLoans.jsp";
 
 	}
