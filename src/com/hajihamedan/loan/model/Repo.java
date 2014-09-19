@@ -55,6 +55,16 @@ public abstract class Repo {
 		return object;
 	}
 
+	public Domain loadById(int id) throws Exception {
+		String condition = this.idProperty + "=" + id;
+		Vector object = this.loadByCondition(condition);
+		if (object.size() == 1) {
+			return (Domain) object.elementAt(0);
+		} else {
+			return null;
+		}
+	}
+
 	public Vector<Domain> loadAll() throws Exception {
 		DataHandler db = DataHandler.getInstance();
 		ResultSet results = db.select(this.tableName, this.idProperty, "DESC");

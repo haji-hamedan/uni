@@ -22,5 +22,4 @@ abstract public class Domain {
 
 	abstract public String[] getDbProps();
 
-	public abstract Object loadById(int id);
 }

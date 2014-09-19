@@ -45,6 +45,9 @@ public class Front extends HttpServlet {
 					methodName = "index";
 				}
 
+				className = className.substring(0, 1).toUpperCase()
+						+ className.substring(1);
+
 				Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller."
 						+ className);
 

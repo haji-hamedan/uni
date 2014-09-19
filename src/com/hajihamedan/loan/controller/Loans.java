@@ -108,9 +108,21 @@ public class Loans {
 		LoanRepo loanRepo = new LoanRepo();
 		Vector<Domain> loans = loanRepo.loadAll();
 
-		request.setAttribute("pageTitle", "نمایش وام ها");
+		request.setAttribute("pageTitle", "مشاهده وام ها");
 		request.setAttribute("loans", loans);
 		return "showLoans.jsp";
+
+	}
+
+	public String show(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		int loanId = Integer.parseInt(request.getParameter("loanId"));
+		Loan loan = Loan.loadById(loanId);
+
+		request.setAttribute("pageTitle", "مشاهده وام " + loanId);
+		request.setAttribute("loan", loan);
+		return "showLoan.jsp";
 
 	}
 

@@ -5,29 +5,37 @@
 <div class="row">
 	<div class="large-12 columns">
 		<h1>نمایش وام ها</h1>
-		<p>
-		<%
-		Vector loans = (Vector)request.getAttribute("loans");
-		Enumeration allLoans = loans.elements();
-		while(allLoans.hasMoreElements()) {
-			Loan loan = (Loan)allLoans.nextElement();
-			%>
-			 <%= loan.getLoanId() %>
-			 <%= loan.getTitle() %>
-			 <%= loan.getAmount() %>
-			 <%
-			 Vector payments = (Vector)loan.getPayments();
-			 Enumeration allPayments = payments.elements();
-				while(allPayments.hasMoreElements()) {
-					Payment payment = (Payment)allPayments.nextElement();
-					%>
-					 <%= payment.getPaymentId() %>
-					 <%= payment.getLoanId() %>
-					 <%= payment.getAmount() %>
-			 	<% } %>
-			 <br>
-		<% } %>
-		</p>
+		<table>
+			<tr>
+				<th>مشخصه</th>	
+				<th>عنوان</th>	
+				<th>مقدار</th>	
+				<th>نرخ بهره</th>	
+				<th>تعداد اقساط</th>	
+				<th>بازپرداخت</th>	
+				<th>مشاهده</th>
+				<th>ویرایش</th>
+				<th>حذف</th>
+			</tr>
+			<%
+			Vector loans = (Vector)request.getAttribute("loans");
+			Enumeration allLoans = loans.elements();
+			while(allLoans.hasMoreElements()) {
+				Loan loan = (Loan)allLoans.nextElement();
+				%>
+				<tr>
+				 <td><%= loan.getLoanId() %></td>
+				 <td><%= loan.getTitle() %></td>
+				 <td><%= loan.getAmount() %></td>
+				 <td><%= loan.getInterestRate() %></td>
+				 <td><%= loan.getPaymentCount() %></td>
+				 <td><%= loan.getPaymentFrequency() %></td>
+				 <td><a href="<%= request.getContextPath() %>/Loans.show?loanId=<%= loan.getLoanId() %>" >مشاهده</a></td>
+				 <td><a href="<%= request.getContextPath() %>/Loans.edit?loanId=<%= loan.getLoanId() %>" >ویرایش</a></td>
+				 <td><a href="#" >حذف</a></td>
+				</tr>
+			<% } %>
+		</table>
 	</div>
 </div>
 

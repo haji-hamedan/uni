@@ -41,10 +41,9 @@ public class Loan extends Domain {
 		return this.dbProps;
 	}
 
-	@Override
-	public Loan loadById(int id) {
-		Loan loan = new Loan();
-
+	public static Loan loadById(int id) throws Exception {
+		LoanRepo loanRepo = new LoanRepo();
+		Loan loan = (Loan) loanRepo.loadById(id);
 		return loan;
 	}
 
