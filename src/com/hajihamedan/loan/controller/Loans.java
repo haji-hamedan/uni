@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hajihamedan.loan.helper.Security;
 import com.hajihamedan.loan.helper.Validation;
+import com.hajihamedan.loan.model.Domain;
 import com.hajihamedan.loan.model.Loan;
 import com.hajihamedan.loan.model.LoanRepo;
+import com.hajihamedan.loan.model.Payment;
 import com.sun.jmx.snmp.Timestamp;
 
 public class Loans {
@@ -83,7 +85,9 @@ public class Loans {
 			newLoan.setCreateDate(today);
 
 			try {
-				newLoan.persist();
+				newLoan = (Loan) newLoan.persist();
+				this.createPayments(newLoan);
+
 			} catch (Exception e) {
 				status = "error";
 				message = e.getMessage();
@@ -102,7 +106,7 @@ public class Loans {
 			throws Exception {
 
 		LoanRepo loanRepo = new LoanRepo();
-		Vector<Object> loans = loanRepo.loadAll();
+		Vector<Domain> loans = loanRepo.loadAll();
 
 		request.setAttribute("pageTitle", "نمایش وام ها");
 		request.setAttribute("loans", loans);
@@ -117,5 +121,46 @@ public class Loans {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(reponse_msg);
+	}
+
+	/**
+	 * Create payments by the standard formula.
+	 * 
+	 * @param loan
+	 * @throws Exception
+	 */
+	private void createPayments(Loan loan) throws Exception {
+		int loanId = loan.getLoanId();
+		short paymentCount = loan.getPaymentCount();
+		byte paymentFrequency = loan.getPaymentFrequency();
+		byte interestRate = loan.getInterestRate();
+		long loanAmount = loan.getAmount();
+		int userId = loan.getUserId();
+
+		long interestAmount = 0;
+		short monthInterval = 0;
+		long paymentAmount = 0;
+
+		if (paymentFrequency == Loan.MONTHLY_PAYMENT) {
+			monthInterval = 1;
+		} else if (paymentFrequency == Loan.YEARLY_PAYMENT) {
+			monthInterval = 12;
+		}
+
+		interestAmount = ((paymentCount + monthInterval) * interestAmount * loanAmount) / 2400;
+		paymentAmount = (loanAmount + interestRate) / paymentCount;
+
+		long today = new Timestamp().getDateTime();
+
+		for (int i = 0; i < paymentCount; i++) {
+			Payment payment = new Payment();
+			payment.setLoanId(loanId);
+			payment.setAmount(paymentAmount);
+			payment.setPayDate(today);
+			payment.setCreateDate(today);
+			payment.setUserId(userId);
+			payment.persist();
+		}
+
 	}
 }

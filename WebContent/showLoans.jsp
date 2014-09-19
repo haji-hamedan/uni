@@ -12,8 +12,19 @@
 		while(allLoans.hasMoreElements()) {
 			Loan loan = (Loan)allLoans.nextElement();
 			%>
-			 <%= loan.getIdProperty() %>
+			 <%= loan.getLoanId() %>
 			 <%= loan.getTitle() %>
+			 <%= loan.getAmount() %>
+			 <%
+			 Vector payments = (Vector)loan.getPayments();
+			 Enumeration allPayments = payments.elements();
+				while(allPayments.hasMoreElements()) {
+					Payment payment = (Payment)allPayments.nextElement();
+					%>
+					 <%= payment.getPaymentId() %>
+					 <%= payment.getLoanId() %>
+					 <%= payment.getAmount() %>
+			 	<% } %>
 			 <br>
 		<% } %>
 		</p>

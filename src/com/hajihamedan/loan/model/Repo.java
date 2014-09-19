@@ -9,7 +9,7 @@ public abstract class Repo {
 	protected String tableName;
 	protected String idProperty;
 
-	public void persist(Object object) throws Exception {
+	public Domain persist(Domain object) throws Exception {
 
 		DataHandler db = DataHandler.getInstance();
 
@@ -39,27 +39,37 @@ public abstract class Repo {
 		}
 
 		if (values[idIndex].equals("0")) {
-			ResultSet result = db.select(this.tableName);
+			ResultSet result = db.selectMax(this.tableName, this.idProperty);
 			int id = 0;
 			while (result.next()) {
 				id = result.getInt(this.idProperty);
 			}
 			values[idIndex] = String.valueOf(id + 1);
 
+			object.setIdProperty(id);
+
 			db.insert(this.tableName, columns, values);
 		} else {
 			db.update(this.tableName, columns, values, idIndex);
 		}
+		return object;
 	}
 
-	public Vector<Object> loadAll() throws Exception {
+	public Vector<Domain> loadAll() throws Exception {
 		DataHandler db = DataHandler.getInstance();
 		ResultSet results = db.select(this.tableName, this.idProperty, "DESC");
-		Vector<Object> objects = createInstance(results);
+		Vector<Domain> objects = createInstance(results);
 		return objects;
 	}
 
-	private Vector<Object> createInstance(ResultSet result) throws Exception {
+	public Vector<Domain> loadByCondition(String condition) throws Exception {
+		DataHandler db = DataHandler.getInstance();
+		ResultSet results = db.selectByCondition(this.tableName, condition);
+		Vector<Domain> objects = createInstance(results);
+		return objects;
+	}
+
+	protected Vector<Domain> createInstance(ResultSet result) throws Exception {
 
 		Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.model."
 				+ this.className);
@@ -67,11 +77,10 @@ public abstract class Repo {
 
 		String[] dbProps = (String[]) m.invoke(ctrlClass.newInstance());
 
-		Vector<Object> objects = new Vector<>();
+		Vector<Domain> objects = new Vector<>();
 
-		int index = 0;
 		while (result.next()) {
-			Object object = ctrlClass.newInstance();
+			Domain object = (Domain) ctrlClass.newInstance();
 			for (int i = 0; i < dbProps.length; i++) {
 				Class<?> type = ctrlClass.getDeclaredField(dbProps[i]).getType();
 

@@ -1,5 +1,7 @@
 package com.hajihamedan.loan.model;
 
+import java.util.Vector;
+
 public class Loan extends Domain {
 
 	private int loanId;
@@ -37,6 +39,13 @@ public class Loan extends Domain {
 	@Override
 	public String[] getDbProps() {
 		return this.dbProps;
+	}
+
+	@Override
+	public Loan loadById(int id) {
+		Loan loan = new Loan();
+
+		return loan;
 	}
 
 	/**
@@ -173,4 +182,12 @@ public class Loan extends Domain {
 		this.userId = userId;
 	}
 
+	public Vector<Domain> getPayments() throws Exception {
+		PaymentRepo paymentRepo = new PaymentRepo();
+
+		String condition = "loanId = " + this.getLoanId();
+		Vector<Domain> payments = paymentRepo.loadByCondition(condition);
+
+		return payments;
+	}
 }

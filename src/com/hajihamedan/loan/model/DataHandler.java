@@ -38,6 +38,8 @@ public class DataHandler {
 		 * ResultSet object.
 		 */
 
+		System.out.println(query);
+
 		statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_READ_ONLY);
 		ResultSet result = statement.executeQuery(query);
@@ -56,6 +58,18 @@ public class DataHandler {
 		return this.query(query);
 	}
 
+	public ResultSet selectByCondition(String tableName, String condition)
+			throws Exception {
+		String query = "SELECT * FROM " + tableName + " WHERE " + condition;
+		return this.query(query);
+	}
+
+	public ResultSet selectMax(String tableName, String column) throws Exception {
+		String query = "SELECT MAX(" + column + ") as " + column + " FROM "
+				+ tableName;
+		return this.query(query);
+	}
+
 	public ResultSet insert(String tableName, String[] columns, String[] values)
 			throws Exception {
 		String query = "INSERT INTO " + tableName + " (";
@@ -68,7 +82,7 @@ public class DataHandler {
 			query += value + ",";
 		}
 		query = query.substring(0, (query.length() - 1));
-		query += ");";
+		query += ")";
 
 		return this.query(query);
 	}
