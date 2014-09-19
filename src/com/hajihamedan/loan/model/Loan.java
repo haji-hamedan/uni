@@ -17,6 +17,8 @@ public class Loan extends Domain {
 	public static final int YEARLY_PAYMENT = 1;
 	public static final int MONTHLY_PAYMENT = 2;
 
+	public static final String[] PAYMENTS = { null, "سالیانه", "ماهیانه" };
+
 	protected String[] dbProps = { "loanId", "title", "amount", "interestRate",
 			"paymentCount", "paymentFrequency", "firstPaymentDate", "createDate",
 			"userId" };

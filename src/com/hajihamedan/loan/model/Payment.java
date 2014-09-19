@@ -30,7 +30,6 @@ public class Payment extends Domain {
 		return this.dbProps;
 	}
 
-	@Override
 	public Object loadById(int id) {
 		Payment payment = new Payment();
 		return payment;

@@ -134,7 +134,7 @@ public class Validation {
 			if (!item.getValue().matches(pattern)) {
 				this.isValid = false;
 				this.message += "<p>مقدار " + item.getName()
-						+ " را به صورت تاریخ معتبر با فرمت روز/ماه/سال وارد نمایید.</p>";
+						+ " را به صورت تاریخ معتبر با فرمت روز-ماه-سال وارد نمایید.</p>";
 			}
 		}
 	}

@@ -1,11 +1,13 @@
 package com.hajihamedan.loan.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hajihamedan.loan.helper.JalaliCalendar;
 import com.hajihamedan.loan.helper.Security;
 import com.hajihamedan.loan.helper.Validation;
 import com.hajihamedan.loan.model.Domain;
@@ -28,7 +30,7 @@ public class Loans {
 	}
 
 	public String submit(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+			throws IOException, Exception {
 		String status = "success";
 		String message = "";
 		int userId = 0;
@@ -72,7 +74,11 @@ public class Loans {
 			byte paymentFrequency = Byte.parseByte(inputPaymentFrequency);
 			String firstPaymentDate = inputFirstPaymentDate;
 
-			long today = new Timestamp().getDateTime();
+			long today = Calendar.getInstance().getTimeInMillis();
+
+			JalaliCalendar jalaliCalendar = new JalaliCalendar();
+			long firstPaymentTimestamp = jalaliCalendar
+					.PersianToMillis(firstPaymentDate);
 
 			Loan newLoan = new Loan();
 			newLoan.setTitle(title);
@@ -80,7 +86,7 @@ public class Loans {
 			newLoan.setInterestRate(interestRate);
 			newLoan.setPaymentCount(paymentCount);
 			newLoan.setPaymentFrequency(paymentFrequency);
-			newLoan.setFirstPaymentDate(today);
+			newLoan.setFirstPaymentDate(firstPaymentTimestamp);
 			newLoan.setUserId(userId);
 			newLoan.setCreateDate(today);
 
