@@ -64,6 +64,16 @@ public class DataHandler {
 		return this.query(query);
 	}
 
+	public ResultSet selectByCondition(String tableName, String condition,
+			String orderColumn, String order) throws Exception {
+		String query = "SELECT * FROM " + tableName + " WHERE " + condition;
+		if (orderColumn != null && orderColumn != "" && order != null
+				&& order != "") {
+			query += " ORDER BY " + orderColumn + " " + order;
+		}
+		return this.query(query);
+	}
+
 	public ResultSet selectMax(String tableName, String column) throws Exception {
 		String query = "SELECT MAX(" + column + ") as " + column + " FROM "
 				+ tableName;
@@ -92,11 +102,16 @@ public class DataHandler {
 
 		String query = "UPDATE " + tableName + " SET ";
 		for (int i = 0; i < columns.length; i++) {
-			query += columns[i] + "=" + values[i] + ", ";
+			query += columns[i] + "=" + values[i] + ",";
 		}
 		query = query.substring(0, (query.length() - 1));
 		query += " WHERE " + columns[idIndex] + "=" + values[idIndex];
 
+		return this.query(query);
+	}
+
+	public ResultSet delete(String tableName, String condition) throws Exception {
+		String query = "DELETE FROM " + tableName + " WHERE " + condition;
 		return this.query(query);
 	}
 }

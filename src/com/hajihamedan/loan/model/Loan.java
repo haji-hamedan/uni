@@ -14,9 +14,6 @@ public class Loan extends Domain {
 	private long createDate;
 	private int userId;
 
-	public static final int YEARLY_PAYMENT = 1;
-	public static final int MONTHLY_PAYMENT = 2;
-
 	public static final String[] PAYMENTS = { null, "سالیانه", "ماهیانه" };
 
 	protected String[] dbProps = { "loanId", "title", "amount", "interestRate",
@@ -185,10 +182,17 @@ public class Loan extends Domain {
 
 	public Vector<Domain> getPayments() throws Exception {
 		PaymentRepo paymentRepo = new PaymentRepo();
-
-		String condition = "loanId = " + this.getLoanId();
-		Vector<Domain> payments = paymentRepo.loadByCondition(condition);
-
+		Vector<Domain> payments = paymentRepo.loadByLoanId(this.getLoanId());
 		return payments;
+	}
+
+	public static String getPaymentFrequencyName(int paymentFrequency) {
+		if (paymentFrequency == PaymentFrequency.MONTHLY_PAYMENT) {
+			return "ماهیانه";
+		} else if (paymentFrequency == PaymentFrequency.YEARLY_PAYMENT) {
+			return "سالیانه";
+		} else {
+			return null;
+		}
 	}
 }

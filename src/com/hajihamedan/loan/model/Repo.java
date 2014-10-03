@@ -45,8 +45,7 @@ public abstract class Repo {
 				id = result.getInt(this.idProperty);
 			}
 			values[idIndex] = String.valueOf(id + 1);
-
-			object.setIdProperty(id);
+			object.setIdProperty(id + 1);
 
 			db.insert(this.tableName, columns, values);
 		} else {
@@ -75,6 +74,15 @@ public abstract class Repo {
 	public Vector<Domain> loadByCondition(String condition) throws Exception {
 		DataHandler db = DataHandler.getInstance();
 		ResultSet results = db.selectByCondition(this.tableName, condition);
+		Vector<Domain> objects = createInstance(results);
+		return objects;
+	}
+
+	public Vector<Domain> loadByCondition(String condition, String orderColumn,
+			String order) throws Exception {
+		DataHandler db = DataHandler.getInstance();
+		ResultSet results = db.selectByCondition(this.tableName, condition,
+				orderColumn, order);
 		Vector<Domain> objects = createInstance(results);
 		return objects;
 	}
@@ -126,4 +134,17 @@ public abstract class Repo {
 
 		return objects;
 	}
+
+	public void deleteById(int id) throws Exception {
+		DataHandler db = DataHandler.getInstance();
+
+		String condition = this.idProperty + " = " + id;
+		ResultSet results = db.delete(this.tableName, condition);
+	}
+
+	public void deleteByCondition(String condition) throws Exception {
+		DataHandler db = DataHandler.getInstance();
+		ResultSet results = db.delete(this.tableName, condition);
+	}
+
 }
