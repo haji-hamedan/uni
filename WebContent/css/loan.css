@@ -3,6 +3,7 @@
 *{
 	direction: rtl;
 	font-family: tahoma !important;
+	word-wrap: break-word;
 }
 
 body{

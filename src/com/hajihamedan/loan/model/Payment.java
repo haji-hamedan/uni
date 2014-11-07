@@ -8,7 +8,7 @@ public class Payment extends Domain {
 	private long createDate;
 	private int userId;
 
-	protected String[] dbProps = { "paymentId", "loanId", "amount", "payDate",
+	public String[] dbProps = { "paymentId", "loanId", "amount", "payDate",
 			"createDate", "userId" };
 
 	public Payment() {

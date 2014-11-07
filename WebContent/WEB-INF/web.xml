@@ -5,6 +5,10 @@
 	version="3.0">
 	<display-name>loan</display-name>
 	
+    <welcome-file-list>
+    	<welcome-file>Front</welcome-file>
+	</welcome-file-list>
+    
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.css</url-pattern>
@@ -15,7 +19,10 @@
 		<url-pattern>*.js</url-pattern>
 	</servlet-mapping>
 
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<session-config>
+		<session-timeout>
+		1
+		</session-timeout>
+	</session-config>
+	
 </web-app>

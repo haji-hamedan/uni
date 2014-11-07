@@ -19,35 +19,28 @@ import com.hajihamedan.loan.model.PaymentFrequency;
 import com.hajihamedan.loan.model.PaymentRepo;
 import com.sun.jmx.snmp.Timestamp;
 
-public class Loans {
+public class Loans extends Controller {
 
-	public String index(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return this.showAll(request, response);
 	}
 
 	public String add(HttpServletRequest request, HttpServletResponse response) {
-
 		request.setAttribute("pageTitle", "ثبت وام جدید");
 		return "addLoan.jsp";
 	}
 
-	public String submit(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, Exception {
+	public String submit(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
 		String status = "success";
 		String message = "";
 		int userId = 0;
 
 		String inputTitle = Security.clean(request.getParameter("title"));
 		String inputAmount = Security.clean(request.getParameter("amount"));
-		String inputInterestRate = Security.clean(request
-				.getParameter("interestRate"));
-		String inputPaymentCount = Security.clean(request
-				.getParameter("paymentCount"));
-		String inputPaymentFrequency = Security.clean(request
-				.getParameter("paymentFrequency"));
-		String inputFirstPaymentDate = Security.clean(request
-				.getParameter("firstPaymentDate"));
+		String inputInterestRate = Security.clean(request.getParameter("interestRate"));
+		String inputPaymentCount = Security.clean(request.getParameter("paymentCount"));
+		String inputPaymentFrequency = Security.clean(request.getParameter("paymentFrequency"));
+		String inputFirstPaymentDate = Security.clean(request.getParameter("firstPaymentDate"));
 
 		String[] titleRules = { "required" };
 		String[] amountRules = { "required", "long" };
@@ -61,10 +54,8 @@ public class Loans {
 		validator.setItem("مقدار وام", inputAmount, amountRules);
 		validator.setItem("نرخ بهره", inputInterestRate, interestRateRules);
 		validator.setItem("تعداد اقساط", inputPaymentCount, paymentCountRules);
-		validator.setItem("بازه پرداخت اقساط", inputPaymentFrequency,
-				paymentFrequencyRules);
-		validator.setItem("اولین سررسید", inputFirstPaymentDate,
-				firstPaymentDateRules);
+		validator.setItem("بازه پرداخت اقساط", inputPaymentFrequency, paymentFrequencyRules);
+		validator.setItem("اولین سررسید", inputFirstPaymentDate, firstPaymentDateRules);
 
 		if (!validator.isValid()) {
 			status = "error";
@@ -80,8 +71,7 @@ public class Loans {
 			long today = Calendar.getInstance().getTimeInMillis();
 
 			JalaliCalendar jalaliCalendar = new JalaliCalendar();
-			long firstPaymentTimestamp = jalaliCalendar
-					.PersianToMillis(firstPaymentDate);
+			long firstPaymentTimestamp = jalaliCalendar.PersianToMillis(firstPaymentDate);
 
 			Loan newLoan = new Loan();
 			newLoan.setTitle(title);
@@ -111,8 +101,7 @@ public class Loans {
 		return null;
 	}
 
-	public String showAll(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public String showAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		LoanRepo loanRepo = new LoanRepo();
 		Vector<Domain> loans = loanRepo.loadAll();
@@ -123,8 +112,7 @@ public class Loans {
 
 	}
 
-	public String show(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public String show(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
 		Loan loan = Loan.loadById(loanId);
@@ -133,15 +121,6 @@ public class Loans {
 		request.setAttribute("loan", loan);
 		return "showLoan.jsp";
 
-	}
-
-	private void ajaxResponse(HttpServletResponse response, String status,
-			String message) throws IOException {
-		String reponse_msg = "{\"status\":\"" + status + "\",\"msg\":\""
-				+ message.trim() + "\"}";
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(reponse_msg);
 	}
 
 	/**
@@ -199,8 +178,7 @@ public class Loans {
 
 	}
 
-	public String deleteLoan(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, Exception {
+	public String deleteLoan(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
 
 		String status = "success";
 		String message = "";
@@ -233,8 +211,7 @@ public class Loans {
 		return null;
 	}
 
-	public String edit(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public String edit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
 		Loan loan = Loan.loadById(loanId);
@@ -244,8 +221,7 @@ public class Loans {
 		return "editLoan.jsp";
 	}
 
-	public String submitEdit(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, Exception {
+	public String submitEdit(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
 		String status = "success";
 		String message = "";
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
@@ -253,14 +229,10 @@ public class Loans {
 
 		String inputTitle = Security.clean(request.getParameter("title"));
 		String inputAmount = Security.clean(request.getParameter("amount"));
-		String inputInterestRate = Security.clean(request
-				.getParameter("interestRate"));
-		String inputPaymentCount = Security.clean(request
-				.getParameter("paymentCount"));
-		String inputPaymentFrequency = Security.clean(request
-				.getParameter("paymentFrequency"));
-		String inputFirstPaymentDate = Security.clean(request
-				.getParameter("firstPaymentDate"));
+		String inputInterestRate = Security.clean(request.getParameter("interestRate"));
+		String inputPaymentCount = Security.clean(request.getParameter("paymentCount"));
+		String inputPaymentFrequency = Security.clean(request.getParameter("paymentFrequency"));
+		String inputFirstPaymentDate = Security.clean(request.getParameter("firstPaymentDate"));
 
 		String[] titleRules = { "required" };
 		String[] amountRules = { "required", "long" };
@@ -274,10 +246,8 @@ public class Loans {
 		validator.setItem("مقدار وام", inputAmount, amountRules);
 		validator.setItem("نرخ بهره", inputInterestRate, interestRateRules);
 		validator.setItem("تعداد اقساط", inputPaymentCount, paymentCountRules);
-		validator.setItem("بازه پرداخت اقساط", inputPaymentFrequency,
-				paymentFrequencyRules);
-		validator.setItem("اولین سررسید", inputFirstPaymentDate,
-				firstPaymentDateRules);
+		validator.setItem("بازه پرداخت اقساط", inputPaymentFrequency, paymentFrequencyRules);
+		validator.setItem("اولین سررسید", inputFirstPaymentDate, firstPaymentDateRules);
 
 		if (!validator.isValid()) {
 			status = "error";
@@ -293,8 +263,7 @@ public class Loans {
 			long today = Calendar.getInstance().getTimeInMillis();
 
 			JalaliCalendar jalaliCalendar = new JalaliCalendar();
-			long firstPaymentTimestamp = jalaliCalendar
-					.PersianToMillis(firstPaymentDate);
+			long firstPaymentTimestamp = jalaliCalendar.PersianToMillis(firstPaymentDate);
 
 			Loan loan = Loan.loadById(loanId);
 			loan.setTitle(title);
@@ -329,7 +298,7 @@ public class Loans {
 		PaymentRepo paymentRepo = new PaymentRepo();
 
 		Vector<Domain> payments = loan.getPayments();
-		Enumeration allPayments = payments.elements();
+		Enumeration<Domain> allPayments = payments.elements();
 		while (allPayments.hasMoreElements()) {
 			Payment payment = (Payment) allPayments.nextElement();
 			paymentRepo.deleteById(payment.getPaymentId());

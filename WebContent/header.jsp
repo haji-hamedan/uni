@@ -27,7 +27,9 @@
 
 </head>
 <body>
-
+<%
+User currentUser = (User) request.getAttribute("currentUser");
+%>
 	<div data-magellan-expedition="fixed">
 		<dl class="sub-nav">
 			<dd>
@@ -39,5 +41,20 @@
 			<dd>
 				<a href="<%=request.getContextPath()%>/Loans.showAll">مشاهده وام ها</a>
 			</dd>
+			<% if(currentUser == null){ %>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Users.login">ورود</a>
+			</dd>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Users.register">ثبت نام</a>
+			</dd>
+			<% } else {%>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Users.showAll">لیست کاربران</a>
+			</dd>
+			<dd>
+				<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
+			</dd>
+			<% } %>
 		</dl>
 	</div>

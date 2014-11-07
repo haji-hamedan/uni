@@ -8,19 +8,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.hajihamedan.loan.model.User;
 
 @WebServlet("/")
 public class Front extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		HttpSession session = request.getSession(true);
+		int currentUserId = 0;
+		if (session.getAttribute("userId") != null) {
+			currentUserId = (int) session.getAttribute("userId");
+		}
+
+		User currentUser = null;
+		try {
+			currentUser = User.loadById(currentUserId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		request.setAttribute("currentUser", currentUser);
 
 		try {
 			// remove '/' from beginning of url
-			String path = request.getServletPath().substring(1,
-					request.getServletPath().length());
+			String path = request.getServletPath().substring(1, request.getServletPath().length());
 			int pathLength = path.length();
 
 			String className;
@@ -45,17 +60,13 @@ public class Front extends HttpServlet {
 					methodName = "index";
 				}
 
-				className = className.substring(0, 1).toUpperCase()
-						+ className.substring(1);
+				className = className.substring(0, 1).toUpperCase() + className.substring(1);
 
-				Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller."
-						+ className);
+				Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller." + className);
 
-				Method m = ctrlClass.getMethod(methodName, HttpServletRequest.class,
-						HttpServletResponse.class);
+				Method m = ctrlClass.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
 
-				String forward = (String) m.invoke(ctrlClass.newInstance(), request,
-						response);
+				String forward = (String) m.invoke(ctrlClass.newInstance(), request, response);
 
 				if (forward != null) {
 					request.getRequestDispatcher(forward).forward(request, response);
@@ -70,8 +81,7 @@ public class Front extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }

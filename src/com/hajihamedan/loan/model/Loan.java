@@ -16,7 +16,7 @@ public class Loan extends Domain {
 
 	public static final String[] PAYMENTS = { null, "سالیانه", "ماهیانه" };
 
-	protected String[] dbProps = { "loanId", "title", "amount", "interestRate",
+	public String[] dbProps = { "loanId", "title", "amount", "interestRate",
 			"paymentCount", "paymentFrequency", "firstPaymentDate", "createDate",
 			"userId" };
 

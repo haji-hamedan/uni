@@ -34,6 +34,8 @@ public class Validation {
 					this.checkShort(thisItem);
 				} else if (rule == "date") {
 					this.checkDate(thisItem);
+				} else if (rule == "email") {
+					this.checkEmail(thisItem);
 				}
 			}
 
@@ -98,8 +100,7 @@ public class Validation {
 				Byte.parseByte(item.getValue());
 			} catch (Exception e) {
 				this.isValid = false;
-				this.message += "<p>لطفاً مقدار " + item.getName()
-						+ " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
+				this.message += "<p>لطفاً مقدار " + item.getName() + " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
 			}
 		}
 	}
@@ -110,8 +111,7 @@ public class Validation {
 				Long.parseLong(item.getValue());
 			} catch (Exception e) {
 				this.isValid = false;
-				this.message += "<p>لطفاً مقدار " + item.getName()
-						+ " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
+				this.message += "<p>لطفاً مقدار " + item.getName() + " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
 			}
 		}
 	}
@@ -122,8 +122,7 @@ public class Validation {
 				Short.parseShort(item.getValue());
 			} catch (Exception e) {
 				this.isValid = false;
-				this.message += "<p>لطفاً مقدار " + item.getName()
-						+ " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
+				this.message += "<p>لطفاً مقدار " + item.getName() + " را به صورت عددی و بدون نقطه وارد نمایید.</p>";
 			}
 		}
 	}
@@ -133,9 +132,16 @@ public class Validation {
 			String pattern = "(13|14)[0-9]{2}[- /.](0[1-9]|1[012])[- /.]((0)[1-9]|[12][0-9]|3[01])";
 			if (!item.getValue().matches(pattern)) {
 				this.isValid = false;
-				this.message += "<p>مقدار " + item.getName()
-						+ " را به صورت تاریخ معتبر با فرمت روز-ماه-سال وارد نمایید.</p>";
+				this.message += "<p>مقدار " + item.getName() + " را به صورت تاریخ معتبر با فرمت روز-ماه-سال وارد نمایید.</p>";
 			}
+		}
+	}
+
+	private void checkEmail(Item item) {
+		String pattern = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		if (!item.getValue().matches(pattern)) {
+			this.isValid = false;
+			this.message += "<p>ایمیل وارد شده معتبر نیست. لطفا ایمیل معتبر وارد نمایید.</p>";
 		}
 	}
 }

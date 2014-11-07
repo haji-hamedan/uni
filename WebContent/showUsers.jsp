@@ -1,46 +1,40 @@
-<%@page import="com.hajihamedan.loan.helper.JalaliCalendar"%>
 <%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
 <div class="row">
 	<div class="large-12 columns">
-		<h1>نمایش وام ها</h1>
+		<h1>نمایش کاربران</h1>
 		<div id="response-message" class="row" style="display: none"></div>
 		<table>
 			<tr>
 				<th>مشخصه</th>
-				<th>عنوان</th>
-				<th>مقدار</th>
-				<th>نرخ بهره</th>
-				<th>تعداد اقساط</th>
-				<th>بازپرداخت</th>
-				<th>اولین باز پرداخت</th>
+				<th>نام کاربری</th>
+				<th>ایمیل</th>
+				<th>نام</th>
+				<th>نام خانوادگی</th>
+				<th>موبایل</th>
 				<th>مشاهده</th>
 				<th>ویرایش</th>
 				<th>حذف</th>
 			</tr>
 			<%
-				Vector loans = (Vector) request.getAttribute("loans");
-				Enumeration allLoans = loans.elements();
-				JalaliCalendar jl = new JalaliCalendar();
-				while (allLoans.hasMoreElements()) {
-					Loan loan = (Loan) allLoans.nextElement();
-					String firstPaymentDate = jl.GregorianToPersian(loan
-							.getFirstPaymentDate());
+				Vector users = (Vector) request.getAttribute("users");
+				Enumeration allUsers = users.elements();
+				while (allUsers.hasMoreElements()) {
+					User user = (User) allUsers.nextElement();
 			%>
-			<tr data-loan-id='<%=loan.getLoanId()%>'>
-				<td><%=loan.getLoanId()%></td>
-				<td><%=loan.getTitle()%></td>
-				<td><%=loan.getAmount()%></td>
-				<td><%=loan.getInterestRate()%></td>
-				<td><%=loan.getPaymentCount()%></td>
-				<td><%=loan.PAYMENTS[loan.getPaymentFrequency()]%></td>
-				<td><%=firstPaymentDate%></td>
+			<tr data-user-id='<%=user.getUserId()%>'>
+				<td><%=user.getUserId()%></td>
+				<td><%=user.getUsername()%></td>
+				<td><%=user.getEmail()%></td>
+				<td><%=user.getFirstName()%></td>
+				<td><%=user.getLastName()%></td>
+				<td><%=user.getMobile()%></td>
 				<td><a
-					href="<%=request.getContextPath()%>/Loans.show?loanId=<%=loan.getLoanId()%>">مشاهده</a></td>
+					href="<%=request.getContextPath()%>/users.show?userId=<%=user.getUserId()%>">مشاهده</a></td>
 				<td><a
-					href="<%=request.getContextPath()%>/Loans.edit?loanId=<%=loan.getLoanId()%>">ویرایش</a></td>
-				<td><button class='tiny js-delete-loan' type='button'>حذف</button></td>
+					href="<%=request.getContextPath()%>/users.edit?userId=<%=user.getUserId()%>">ویرایش</a></td>
+				<td><button class='tiny js-delete-user' type='button'>حذف</button></td>
 			</tr>
 			<%
 				}
@@ -54,14 +48,14 @@
 		var ajax_request = false;
 		var response = $('#response-message');
 			
-		$('.js-delete-loan').click(function() {
+		$('.js-delete-user').click(function() {
 			var deleteConfirm = confirm("آیا مطمئن هستید؟");
 			if (deleteConfirm == false) {
 				return false;
 			} 
 			
 			var tr = $(this).parent('td').parent('tr');
-			var loanId = tr.attr('data-loan-id');
+			var userId = tr.attr('data-user-id');
 			
 			response.html('لطفاً منتظر بمانید...').fadeIn();
 			if (ajax_request) {
@@ -69,11 +63,11 @@
 			}
 			
 			ajax_request = $.ajax({
-				url : "<%=request.getContextPath()%>/Loans.deleteLoan",
+				url : "<%=request.getContextPath()%>/users.deleteUser",
 				dataType : 'json',
 				type : 'post',
 				data : {
-					loanId : loanId
+					userId : userId
 				},
 				success : function(data) {
 					response.stop(true).fadeOut(function() {
