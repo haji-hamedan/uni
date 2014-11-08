@@ -31,6 +31,7 @@ public class Front extends HttpServlet {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		request.setAttribute("currentUserId", currentUserId);
 		request.setAttribute("currentUser", currentUser);
 
 		try {

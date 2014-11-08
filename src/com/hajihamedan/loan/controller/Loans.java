@@ -33,7 +33,7 @@ public class Loans extends Controller {
 	public String submit(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
 		String status = "success";
 		String message = "";
-		int userId = 0;
+		int userId = (int) request.getAttribute("currentUserId");
 
 		String inputTitle = Security.clean(request.getParameter("title"));
 		String inputAmount = Security.clean(request.getParameter("amount"));
@@ -182,7 +182,7 @@ public class Loans extends Controller {
 
 		String status = "success";
 		String message = "";
-		int userId = 0;
+		int userId = (int) request.getAttribute("currentUserId");
 
 		String inputLoanId = Security.clean(request.getParameter("loanId"));
 
@@ -225,7 +225,7 @@ public class Loans extends Controller {
 		String status = "success";
 		String message = "";
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
-		int userId = 0;
+		int userId = (int) request.getAttribute("currentUserId");
 
 		String inputTitle = Security.clean(request.getParameter("title"));
 		String inputAmount = Security.clean(request.getParameter("amount"));
@@ -272,7 +272,6 @@ public class Loans extends Controller {
 			loan.setPaymentCount(paymentCount);
 			loan.setPaymentFrequency(paymentFrequency);
 			loan.setFirstPaymentDate(firstPaymentTimestamp);
-			loan.setUserId(userId);
 			loan.setCreateDate(today);
 
 			try {
