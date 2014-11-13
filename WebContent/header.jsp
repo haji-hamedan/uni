@@ -27,34 +27,45 @@
 
 </head>
 <body>
-<%
-User currentUser = (User) request.getAttribute("currentUser");
-%>
-	<div data-magellan-expedition="fixed">
-		<dl class="sub-nav">
-			<dd>
-				<a href="<%=request.getContextPath()%>">خانه</a>
-			</dd>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
-			</dd>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Loans.showAll">مشاهده وام ها</a>
-			</dd>
-			<% if(currentUser == null){ %>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Users.login">ورود</a>
-			</dd>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Users.register">ثبت نام</a>
-			</dd>
-			<% } else {%>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Users.showAll">لیست کاربران</a>
-			</dd>
-			<dd>
-				<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
-			</dd>
-			<% } %>
-		</dl>
+	<%
+		User currentUser = (User) request.getAttribute("currentUser");
+	%>
+	<div class='row main-menu'>
+		<div class="small-12 columns">
+			<div class='row text-center'>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>">خانه</a>
+				</div>
+				<%
+					if (currentUser != null) {
+				%>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
+				</div>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Loans.showAll">مشاهده
+						وام ها</a>
+				</div>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Users.showAll">لیست
+						کاربران</a>
+				</div>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
+				</div>
+				<%
+					} else {
+				%>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Users.login">ورود</a>
+				</div>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Users.register">ثبت نام</a>
+				</div>
+				<%
+					}
+				%>
+				<div class='columns'> </div>
+			</div>
+		</div>
 	</div>
