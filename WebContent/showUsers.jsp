@@ -13,6 +13,7 @@
 				<th>نام</th>
 				<th>نام خانوادگی</th>
 				<th>موبایل</th>
+				<th>مدیر بودن</th>
 				<th>مشاهده</th>
 				<th>ویرایش</th>
 				<th>حذف</th>
@@ -22,6 +23,12 @@
 				Enumeration allUsers = users.elements();
 				while (allUsers.hasMoreElements()) {
 					User user = (User) allUsers.nextElement();
+					byte isAdmin = user.getIsAdmin();
+					
+					String isAdminCheckBox = "";
+					if(isAdmin == 1){
+						isAdminCheckBox = " checked ";
+					}
 			%>
 			<tr data-user-id='<%=user.getUserId()%>'>
 				<td><%=user.getUserId()%></td>
@@ -30,6 +37,7 @@
 				<td><%=user.getFirstName()%></td>
 				<td><%=user.getLastName()%></td>
 				<td><%=user.getMobile()%></td>
+				<td><input type="checkbox" <%= isAdminCheckBox %> readonly="readonly" disabled="disabled" ></td>
 				<td><a
 					href="<%=request.getContextPath()%>/users.show?userId=<%=user.getUserId()%>">مشاهده</a></td>
 				<td><a

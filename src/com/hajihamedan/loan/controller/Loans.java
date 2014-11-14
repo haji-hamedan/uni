@@ -17,6 +17,7 @@ import com.hajihamedan.loan.model.LoanRepo;
 import com.hajihamedan.loan.model.Payment;
 import com.hajihamedan.loan.model.PaymentFrequency;
 import com.hajihamedan.loan.model.PaymentRepo;
+import com.hajihamedan.loan.model.User;
 import com.sun.jmx.snmp.Timestamp;
 
 public class Loans extends Controller {
@@ -104,7 +105,15 @@ public class Loans extends Controller {
 	public String showAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		LoanRepo loanRepo = new LoanRepo();
-		Vector<Domain> loans = loanRepo.loadAll();
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		Vector<Domain> loans = null;
+		if (currentUser.getIsAdmin() == 1) {
+			loans = loanRepo.loadAll();
+		} else {
+			String condition = "userId = " + currentUser.getUserId();
+			loans = loanRepo.loadByCondition(condition);
+		}
 
 		request.setAttribute("pageTitle", "مشاهده وام ها");
 		request.setAttribute("loans", loans);
@@ -182,7 +191,7 @@ public class Loans extends Controller {
 
 		String status = "success";
 		String message = "";
-		int userId = (int) request.getAttribute("currentUserId");
+		User currentUser = (User) request.getAttribute("currentUser");
 
 		String inputLoanId = Security.clean(request.getParameter("loanId"));
 
@@ -196,6 +205,14 @@ public class Loans extends Controller {
 			message = validator.getMessage();
 		} else {
 			int loanId = Integer.parseInt(inputLoanId);
+			Loan loan = Loan.loadById(loanId);
+
+			if (loan.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+				status = "error";
+				message = "شما اجازه ی این کار را ندارید.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
 
 			LoanRepo loanRepo = new LoanRepo();
 			loanRepo.deleteById(loanId);
@@ -215,6 +232,12 @@ public class Loans extends Controller {
 
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
 		Loan loan = Loan.loadById(loanId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (loan.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			request.setAttribute("message", "شما اجازه ی این کار را ندارید.");
+			return "error.jsp";
+		}
 
 		request.setAttribute("loan", loan);
 		request.setAttribute("pageTitle", "ویرایش وام " + loanId);
@@ -225,7 +248,15 @@ public class Loans extends Controller {
 		String status = "success";
 		String message = "";
 		int loanId = Integer.parseInt(request.getParameter("loanId"));
-		int userId = (int) request.getAttribute("currentUserId");
+		Loan loan = Loan.loadById(loanId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (loan.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			status = "error";
+			message = "شما اجازه ی این کار را ندارید.";
+			this.ajaxResponse(response, status, message);
+			return null;
+		}
 
 		String inputTitle = Security.clean(request.getParameter("title"));
 		String inputAmount = Security.clean(request.getParameter("amount"));
@@ -265,7 +296,6 @@ public class Loans extends Controller {
 			JalaliCalendar jalaliCalendar = new JalaliCalendar();
 			long firstPaymentTimestamp = jalaliCalendar.PersianToMillis(firstPaymentDate);
 
-			Loan loan = Loan.loadById(loanId);
 			loan.setTitle(title);
 			loan.setAmount(amount);
 			loan.setInterestRate(interestRate);

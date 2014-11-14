@@ -9,8 +9,9 @@ public class User extends Domain {
 	private String firstName;
 	private String lastName;
 	private String mobile;
+	private byte isAdmin;
 
-	public String[] dbProps = { "userId", "username", "email", "password", "firstName", "lastName", "mobile" };
+	public String[] dbProps = { "userId", "username", "email", "password", "firstName", "lastName", "mobile", "isAdmin" };
 
 	public User() {
 		this.repoName = "UserRepo";
@@ -158,6 +159,21 @@ public class User extends Domain {
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	/**
+	 * @return the isAdmin
+	 */
+	public byte getIsAdmin() {
+		return isAdmin;
+	}
+
+	/**
+	 * @param isAdmin
+	 *            the isAdmin to set
+	 */
+	public void setIsAdmin(byte isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

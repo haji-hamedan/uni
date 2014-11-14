@@ -90,6 +90,7 @@ public class Users extends Controller {
 			newUser.setFirstName(firstName);
 			newUser.setLastName(lastName);
 			newUser.setMobile(mobile);
+			newUser.setIsAdmin((byte) 0);
 
 			try {
 				newUser = (User) newUser.persist();
@@ -159,7 +160,8 @@ public class Users extends Controller {
 				return null;
 			}
 
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);
+			session.removeAttribute("userId");
 			session.setAttribute("userId", user.getUserId());
 
 			if (status == "success") {
@@ -173,6 +175,9 @@ public class Users extends Controller {
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", 0);
+		session.invalidate();
+		request.setAttribute("currentUserId", 0);
+		request.setAttribute("currentUser", null);
 		response.sendRedirect("");
 	}
 

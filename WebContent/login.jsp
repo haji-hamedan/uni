@@ -66,7 +66,11 @@
 				success : function(data) {
 					response.stop(true).fadeOut(function() {
 						response.html(data.msg);
-						response.fadeIn();
+						response.fadeIn(function(){
+							if(data.status == 'success'){
+								window.location.href = '<%=request.getContextPath()%>';
+							}
+						});
 					});
 				},
 				error : function() {
