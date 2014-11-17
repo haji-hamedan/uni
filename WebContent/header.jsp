@@ -42,14 +42,31 @@
 				<div class='large-2 columns'>
 					<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
 				</div>
+				<%
+					if (currentUser.getIsAdmin() == 1) {
+				%>
 				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Loans.showAll">مشاهده
-						وام ها</a>
+					<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
+						ثبت شده در سیستم</a>
 				</div>
 				<div class='large-2 columns'>
 					<a href="<%=request.getContextPath()%>/Users.showAll">لیست
 						کاربران</a>
 				</div>
+				<%
+					} else {
+				%>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
+						من</a>
+				</div>
+				<div class='large-2 columns'>
+					<a href="<%=request.getContextPath()%>/Users.edit?userId=<%= request.getAttribute("currentUserId") %>">
+						ویرایش اطلاعات کاربری</a>
+				</div>
+				<%
+					}
+				%>
 				<div class='large-2 columns'>
 					<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
 				</div>
@@ -65,7 +82,7 @@
 				<%
 					}
 				%>
-				<div class='columns'> </div>
+				<div class='columns'></div>
 			</div>
 		</div>
 	</div>

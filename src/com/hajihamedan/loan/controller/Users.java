@@ -194,4 +194,116 @@ public class Users extends Controller {
 		return generatedPassword;
 	}
 
+	public String show(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		User user = User.loadById(userId);
+
+		request.setAttribute("pageTitle", "مشاهده کاربر " + userId);
+		request.setAttribute("user", user);
+		return "showUser.jsp";
+	}
+
+	public String edit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		User user = User.loadById(userId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (user.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			request.setAttribute("message", "شما اجازه ی این کار را ندارید.");
+			return "error.jsp";
+		}
+
+		request.setAttribute("user", user);
+		request.setAttribute("pageTitle", "ویرایش کاربر " + userId);
+		return "editUser.jsp";
+	}
+
+	public String submitEdit(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+		String status = "success";
+		String message = "";
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		User user = User.loadById(userId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (user.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			status = "error";
+			message = "شما اجازه ی این کار را ندارید.";
+			this.ajaxResponse(response, status, message);
+			return null;
+		}
+
+		String inputUserName = Security.clean(request.getParameter("username"));
+		String inputEmail = Security.clean(request.getParameter("email"));
+		String inputFirstName = Security.clean(request.getParameter("first_name"));
+		String inputLastName = Security.clean(request.getParameter("last_name"));
+		String inputMobile = Security.clean(request.getParameter("mobile"));
+
+		String inputIsAdmin = "off";
+		if (currentUser.getIsAdmin() == 1) {
+			try {
+				inputIsAdmin = Security.clean(request.getParameter("isAdmin"));
+			} catch (Exception e) {
+			}
+		}
+
+		String[] userNameRules = { "required" };
+		String[] emailRules = { "required", "email" };
+		String[] firstNameRules = { "required" };
+		String[] lastNameRules = { "required" };
+		String[] mobileRules = { "required", "long" };
+		// String[] isAdminRules = {};
+
+		Validation validator = new Validation();
+		validator.setItem("نام کاربری", inputUserName, userNameRules);
+		validator.setItem("ایمیل", inputEmail, emailRules);
+		validator.setItem("نام", inputFirstName, firstNameRules);
+		validator.setItem("نام خانوادگی", inputLastName, lastNameRules);
+		validator.setItem("موبایل", inputMobile, mobileRules);
+		// validator.setItem("مدیر بودن", inputIsAdmin, isAdminRules);
+
+		if (!validator.isValid()) {
+			status = "error";
+			message = validator.getMessage();
+		} else {
+			String userName = inputUserName;
+			String email = inputEmail;
+			String firstName = inputFirstName;
+			String lastName = inputLastName;
+			String mobile = inputMobile;
+			String isAdmin = inputIsAdmin;
+
+			user.setUsername(userName);
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setMobile(mobile);
+
+			if (currentUser.getIsAdmin() == 1) {
+				if (isAdmin.equals("on")) {
+					user.setIsAdmin((byte) 1);
+				} else {
+					user.setIsAdmin((byte) 0);
+				}
+			}
+
+			try {
+				user = (User) user.persist();
+			} catch (Exception e) {
+				status = "error";
+				message = e.getMessage();
+				e.printStackTrace();
+			}
+
+			if (status == "success") {
+				message = " ویرایش با موفقیت انجام شد.";
+			}
+		}
+		this.ajaxResponse(response, status, message);
+		return null;
+	}
+
 }
