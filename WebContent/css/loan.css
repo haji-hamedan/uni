@@ -1,28 +1,65 @@
 @CHARSET "utf-8";
 
-*{
+@font-face {
+	font-family: droid;
+	src: url('../fonts/droidnaskhregular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
 	direction: rtl;
-	font-family: tahoma !important;
+	font-family: droid !important;
 	word-wrap: break-word;
 }
 
-body{
-	background-color: #e3e3e3;
+body {
+	background-color: white;
+	font-size: 100%;
 }
 
-.main-menu{
+.main-menu {
 	padding-top: 1em;
 	padding-bottom: 1em;
 	border-bottom: 1px solid white;
 	background-color: black;
 	color: white;
 	max-width: 100%;
+	text-align: center;
 }
-.main-menu a{
-	font-size: 120%;
-	padding: 1em;
+
+.main-menu-item {
+	display: inline-block;
+}
+
+.main-menu-item:not (:FIRST-CHILD ){
+	border-right: 1px solid white;
+}
+
+.main-menu a {
+	padding: 0 2em;
 	color: inherit;
 }
-.main-menu a:hover{
-	color: gray;
+
+.main-menu a:hover {
+	color: #ddd;
+}
+
+.row{
+	margin-bottom: 1em;
+}
+
+.button, button{
+	padding: 0.2em 1em;
+	margin-bottom: 0;
+	font-size: 100%;
+}
+
+label{
+	line-height: 2.4rem;
+}
+
+h1,h2,h3,h4,h5,h6{
+	margin-top: 0.4em;
+	margin-bottom: 0.2em;
 }

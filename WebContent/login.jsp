@@ -68,7 +68,9 @@
 						response.html(data.msg);
 						response.fadeIn(function(){
 							if(data.status == 'success'){
-								window.location.href = '<%=request.getContextPath()%>';
+								setTimeout(function(){
+									window.location.href = '<%=request.getContextPath()%>';
+								}, 1000);
 							}
 						});
 					});

@@ -31,7 +31,7 @@
 			<tr data-loan-id='<%=loan.getLoanId()%>'>
 				<td><%=loan.getLoanId()%></td>
 				<td><%=loan.getTitle()%></td>
-				<td><%=loan.getAmount()%></td>
+				<td><%=loan.getAmount()%> تومان</td>
 				<td><%=loan.getInterestRate()%></td>
 				<td><%=loan.getPaymentCount()%></td>
 				<td><%=loan.PAYMENTS[loan.getPaymentFrequency()]%></td>
@@ -40,7 +40,7 @@
 					href="<%=request.getContextPath()%>/Loans.show?loanId=<%=loan.getLoanId()%>">مشاهده</a></td>
 				<td><a
 					href="<%=request.getContextPath()%>/Loans.edit?loanId=<%=loan.getLoanId()%>">ویرایش</a></td>
-				<td><button class='tiny js-delete-loan' type='button'>حذف</button></td>
+				<td><button class='js-delete-loan' type='button'>حذف</button></td>
 			</tr>
 			<%
 				}

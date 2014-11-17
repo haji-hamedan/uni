@@ -69,6 +69,13 @@ public abstract class Repo {
 		return objects;
 	}
 
+	public Vector<Domain> loadAll(String orderColumn, String order) throws Exception {
+		DataHandler db = DataHandler.getInstance();
+		ResultSet results = db.select(this.tableName, orderColumn, order);
+		Vector<Domain> objects = createInstance(results);
+		return objects;
+	}
+
 	public Vector<Domain> loadByCondition(String condition) throws Exception {
 		DataHandler db = DataHandler.getInstance();
 		ResultSet results = db.selectByCondition(this.tableName, condition);

@@ -74,6 +74,22 @@ public class Users extends Controller {
 			String lastName = inputLastName;
 			String mobile = inputMobile;
 
+			User existUserByUsername = User.loadByUsername(userName);
+			if (existUserByUsername != null) {
+				status = "error";
+				message = "این نام کاربری پیش از این ثبت شده است.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
+			User existUserByEmail = User.loadByEmail(email);
+			if (existUserByEmail != null) {
+				status = "error";
+				message = "این ایمیل   پیش از این ثبت شده است.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
 			if (!password.equals(rePassword)) {
 				status = "error";
 				message = "رمز عبور و تکرار رمز عبور هم خوانی ندارند.";

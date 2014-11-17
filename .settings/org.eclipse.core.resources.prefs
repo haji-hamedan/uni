@@ -5,4 +5,5 @@ encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/showLoans.jsp=UTF-8
 encoding//src/com/hajihamedan/loan/controller/Initial.java=UTF-8
 encoding//src/com/hajihamedan/loan/controller/Loans.java=UTF-8
+encoding//src/com/hajihamedan/loan/controller/Payments.java=UTF-8
 encoding/<project>=UTF-8

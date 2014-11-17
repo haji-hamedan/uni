@@ -24,12 +24,17 @@ public class DataHandler {
 		conn = DriverManager.getConnection(jdbcUrl, username, password);
 	}
 
-	public static synchronized DataHandler getInstance()
-			throws ClassNotFoundException, SQLException {
+	public static synchronized DataHandler getInstance() throws ClassNotFoundException, SQLException {
 		if (instance == null) {
 			instance = new DataHandler();
 		}
 		return instance;
+	}
+
+	public void closeConnection() throws Exception {
+		if (statement != null) {
+			statement.close();
+		}
 	}
 
 	public ResultSet query(String query) throws Exception {
@@ -40,8 +45,7 @@ public class DataHandler {
 
 		System.out.println(query);
 
-		statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-				ResultSet.CONCUR_READ_ONLY);
+		statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		ResultSet result = statement.executeQuery(query);
 		return result;
 	}
@@ -51,37 +55,30 @@ public class DataHandler {
 		return this.query(query);
 	}
 
-	public ResultSet select(String tableName, String orderColumn, String order)
-			throws Exception {
-		String query = "SELECT * FROM " + tableName + " ORDER BY " + orderColumn
-				+ " " + order;
+	public ResultSet select(String tableName, String orderColumn, String order) throws Exception {
+		String query = "SELECT * FROM " + tableName + " ORDER BY " + orderColumn + " " + order;
 		return this.query(query);
 	}
 
-	public ResultSet selectByCondition(String tableName, String condition)
-			throws Exception {
+	public ResultSet selectByCondition(String tableName, String condition) throws Exception {
 		String query = "SELECT * FROM " + tableName + " WHERE " + condition;
 		return this.query(query);
 	}
 
-	public ResultSet selectByCondition(String tableName, String condition,
-			String orderColumn, String order) throws Exception {
+	public ResultSet selectByCondition(String tableName, String condition, String orderColumn, String order) throws Exception {
 		String query = "SELECT * FROM " + tableName + " WHERE " + condition;
-		if (orderColumn != null && orderColumn != "" && order != null
-				&& order != "") {
+		if (orderColumn != null && orderColumn != "" && order != null && order != "") {
 			query += " ORDER BY " + orderColumn + " " + order;
 		}
 		return this.query(query);
 	}
 
 	public ResultSet selectMax(String tableName, String column) throws Exception {
-		String query = "SELECT MAX(" + column + ") as " + column + " FROM "
-				+ tableName;
+		String query = "SELECT MAX(" + column + ") as " + column + " FROM " + tableName;
 		return this.query(query);
 	}
 
-	public ResultSet insert(String tableName, String[] columns, String[] values)
-			throws Exception {
+	public ResultSet insert(String tableName, String[] columns, String[] values) throws Exception {
 		String query = "INSERT INTO " + tableName + " (";
 		for (String column : columns) {
 			query += column + ",";
@@ -97,8 +94,7 @@ public class DataHandler {
 		return this.query(query);
 	}
 
-	public ResultSet update(String tableName, String[] columns, String[] values,
-			int idIndex) throws Exception {
+	public ResultSet update(String tableName, String[] columns, String[] values, int idIndex) throws Exception {
 
 		String query = "UPDATE " + tableName + " SET ";
 		for (int i = 0; i < columns.length; i++) {

@@ -32,57 +32,62 @@
 	%>
 	<div class='row main-menu'>
 		<div class="small-12 columns">
-			<div class='row text-center'>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>">خانه</a>
-				</div>
-				<%
-					if (currentUser != null) {
-				%>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
-				</div>
-				<%
-					if (currentUser.getIsAdmin() == 1) {
-				%>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
-						ثبت شده در سیستم</a>
-				</div>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Users.showAll">لیست
-						کاربران</a>
-				</div>
-				<%
-					} else {
-				%>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
-						من</a>
-				</div>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Users.edit?userId=<%= request.getAttribute("currentUserId") %>">
-						ویرایش اطلاعات کاربری</a>
-				</div>
-				<%
-					}
-				%>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
-				</div>
-				<%
-					} else {
-				%>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Users.login">ورود</a>
-				</div>
-				<div class='large-2 columns'>
-					<a href="<%=request.getContextPath()%>/Users.register">ثبت نام</a>
-				</div>
-				<%
-					}
-				%>
-				<div class='columns'></div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>">خانه</a>
 			</div>
+			<%
+				if (currentUser != null) {
+			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
+			</div>
+			<%
+				if (currentUser.getIsAdmin() == 1) {
+			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
+					ثبت شده در سیستم</a>
+			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Payments.showAll">اقساط
+					ثبت شده در سیستم</a>
+			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Users.showAll">لیست
+					کاربران</a>
+			</div>
+			<%
+				} else {
+			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Loans.showAll">وام های من</a>
+			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Payments.showAll">اقساط
+					من</a>
+			</div>
+			<div class='main-menu-item'>
+				<a
+					href="<%=request.getContextPath()%>/Users.edit?userId=<%=request.getAttribute("currentUserId")%>">
+					ویرایش اطلاعات کاربری</a>
+			</div>
+			<%
+				}
+			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Users.logout">خروج</a>
+			</div>
+			<%
+				} else {
+			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Users.login">ورود</a>
+			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Users.register">ثبت نام</a>
+			</div>
+			<%
+				}
+			%>
 		</div>
 	</div>

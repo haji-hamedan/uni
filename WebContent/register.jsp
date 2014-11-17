@@ -115,7 +115,7 @@
 							if(data.status == 'success'){
 								setTimeout(function(){
 									window.location.href = '<%=request.getContextPath()%>';
-								}, 5000);
+								}, 1000);
 							}
 						});
 					});

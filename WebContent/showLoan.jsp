@@ -12,7 +12,7 @@
 			%>
 			<p>مشخصه وام: <%=loan.getLoanId()%></p>
 			<p>عنوان وام: <%=loan.getTitle()%></p>
-			<p>مقدار وام: <%=loan.getAmount()%></p>
+			<p>مقدار وام: <%=loan.getAmount()%> تومان</p>
 			<p>تعداد اقساط: <%= loan.getPaymentCount() %></p>
 			<p>دوره اقساط: <%= Loan.getPaymentFrequencyName(loan.getPaymentFrequency()) %></p>
 			<p>اولین قسط: <%= firstPaymentDate %></p>
@@ -33,7 +33,7 @@
 			%>
 				<tr>
 					<td><%=payment.getPaymentId()%></td>
-					<td><%=payment.getAmount()%></td>
+					<td><%=payment.getAmount()%> تومان</td>
 					<td><%=paymentDate%></td>
 				</tr>
 			<%

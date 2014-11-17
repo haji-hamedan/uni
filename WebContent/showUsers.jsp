@@ -42,7 +42,7 @@
 					href="<%=request.getContextPath()%>/users.show?userId=<%=user.getUserId()%>">مشاهده</a></td>
 				<td><a
 					href="<%=request.getContextPath()%>/users.edit?userId=<%=user.getUserId()%>">ویرایش</a></td>
-				<td><button class='tiny js-delete-user' type='button'>حذف</button></td>
+				<td><button class='js-delete-user' type='button'>حذف</button></td>
 			</tr>
 			<%
 				}

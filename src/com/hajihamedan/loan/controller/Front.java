@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hajihamedan.loan.model.DataHandler;
 import com.hajihamedan.loan.model.User;
 
 @WebServlet("/")
@@ -78,6 +79,13 @@ public class Front extends HttpServlet {
 			e.printStackTrace();
 			request.setAttribute("message", e.toString());
 			request.getRequestDispatcher("error.jsp").forward(request, response);
+		}
+
+		try {
+			DataHandler dh = DataHandler.getInstance();
+			dh.closeConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
