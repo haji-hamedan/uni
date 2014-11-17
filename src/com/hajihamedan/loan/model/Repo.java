@@ -13,8 +13,7 @@ public abstract class Repo {
 
 		DataHandler db = DataHandler.getInstance();
 
-		Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.model."
-				+ this.className);
+		Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.model." + this.className);
 		Method m = ctrlClass.getMethod("getDbProps");
 		String[] dbProps = (String[]) m.invoke(object);
 
@@ -24,8 +23,7 @@ public abstract class Repo {
 
 		for (int i = 0; i < dbProps.length; i++) {
 			columns[i] = dbProps[i];
-			String getterName = "get" + dbProps[i].substring(0, 1).toUpperCase()
-					+ dbProps[i].substring(1);
+			String getterName = "get" + dbProps[i].substring(0, 1).toUpperCase() + dbProps[i].substring(1);
 			Method getter = ctrlClass.getMethod(getterName);
 			values[i] = String.valueOf(getter.invoke(object));
 
@@ -78,19 +76,16 @@ public abstract class Repo {
 		return objects;
 	}
 
-	public Vector<Domain> loadByCondition(String condition, String orderColumn,
-			String order) throws Exception {
+	public Vector<Domain> loadByCondition(String condition, String orderColumn, String order) throws Exception {
 		DataHandler db = DataHandler.getInstance();
-		ResultSet results = db.selectByCondition(this.tableName, condition,
-				orderColumn, order);
+		ResultSet results = db.selectByCondition(this.tableName, condition, orderColumn, order);
 		Vector<Domain> objects = createInstance(results);
 		return objects;
 	}
 
 	protected Vector<Domain> createInstance(ResultSet result) throws Exception {
 
-		Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.model."
-				+ this.className);
+		Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.model." + this.className);
 		Method m = ctrlClass.getMethod("getDbProps");
 
 		String[] dbProps = (String[]) m.invoke(ctrlClass.newInstance());
@@ -102,8 +97,7 @@ public abstract class Repo {
 			for (int i = 0; i < dbProps.length; i++) {
 				Class<?> type = ctrlClass.getDeclaredField(dbProps[i]).getType();
 
-				String setterName = "set" + dbProps[i].substring(0, 1).toUpperCase()
-						+ dbProps[i].substring(1);
+				String setterName = "set" + dbProps[i].substring(0, 1).toUpperCase() + dbProps[i].substring(1);
 
 				Method setter = ctrlClass.getMethod(setterName, type);
 

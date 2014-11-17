@@ -174,6 +174,7 @@ public class User extends Domain {
 	 */
 	public void setIsAdmin(byte isAdmin) {
 		this.isAdmin = isAdmin;
+		System.out.println(isAdmin);
 	}
 
 }
