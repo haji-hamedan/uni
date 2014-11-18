@@ -63,6 +63,11 @@
 				<a href="<%=request.getContextPath()%>/Loans.showAll">وام های من</a>
 			</div>
 			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Payments.showNear">
+				سررسید های نزدیک
+				</a>
+			</div>
+			<div class='main-menu-item'>
 				<a href="<%=request.getContextPath()%>/Payments.showAll">اقساط
 					من</a>
 			</div>
