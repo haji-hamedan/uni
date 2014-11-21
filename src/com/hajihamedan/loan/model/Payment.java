@@ -7,9 +7,9 @@ public class Payment extends Domain {
 	private long payDate;
 	private long createDate;
 	private int userId;
+	private byte isPaid;
 
-	public String[] dbProps = { "paymentId", "loanId", "amount", "payDate",
-			"createDate", "userId" };
+	public String[] dbProps = { "paymentId", "loanId", "amount", "payDate", "createDate", "userId", "isPaid" };
 
 	public Payment() {
 		this.repoName = "PaymentRepo";
@@ -30,8 +30,9 @@ public class Payment extends Domain {
 		return this.dbProps;
 	}
 
-	public Object loadById(int id) {
-		Payment payment = new Payment();
+	public static Payment loadById(int id) throws Exception {
+		PaymentRepo paymentRepo = new PaymentRepo();
+		Payment payment = (Payment) paymentRepo.loadById(id);
 		return payment;
 	}
 
@@ -44,7 +45,7 @@ public class Payment extends Domain {
 
 	/**
 	 * @param paymentId
-	 *          the paymentId to set
+	 *            the paymentId to set
 	 */
 	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
@@ -59,7 +60,7 @@ public class Payment extends Domain {
 
 	/**
 	 * @param loanId
-	 *          the loanId to set
+	 *            the loanId to set
 	 */
 	public void setLoanId(int loanId) {
 		this.loanId = loanId;
@@ -74,7 +75,7 @@ public class Payment extends Domain {
 
 	/**
 	 * @param amount
-	 *          the amount to set
+	 *            the amount to set
 	 */
 	public void setAmount(long amount) {
 		this.amount = amount;
@@ -89,7 +90,7 @@ public class Payment extends Domain {
 
 	/**
 	 * @param date
-	 *          the date to set
+	 *            the date to set
 	 */
 	public void setPayDate(long payDate) {
 		this.payDate = payDate;
@@ -104,7 +105,7 @@ public class Payment extends Domain {
 
 	/**
 	 * @param createDate
-	 *          the createDate to set
+	 *            the createDate to set
 	 */
 	public void setCreateDate(long createDate) {
 		this.createDate = createDate;
@@ -119,10 +120,25 @@ public class Payment extends Domain {
 
 	/**
 	 * @param userId
-	 *          the userId to set
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	/**
+	 * @return the isPaid
+	 */
+	public byte getIsPaid() {
+		return isPaid;
+	}
+
+	/**
+	 * @param isPaid
+	 *            the isPaid to set
+	 */
+	public void setIsPaid(byte isPaid) {
+		this.isPaid = isPaid;
 	}
 
 }

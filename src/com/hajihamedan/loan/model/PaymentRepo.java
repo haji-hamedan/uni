@@ -12,8 +12,7 @@ public class PaymentRepo extends Repo {
 
 	public Vector loadByLoanId(int loanId) throws Exception {
 		String condition = "loanId = " + loanId;
-		Vector<Domain> payments = this.loadByCondition(condition, this.idProperty,
-				"ASC");
+		Vector<Domain> payments = this.loadByCondition(condition, this.idProperty, "ASC");
 		return payments;
 	}
 

@@ -12,27 +12,30 @@
 			<li>ثبت وام</li>
 			<li>محاسبه اقساط و سررسید وام ها</li>
 			<li>امکان حذف و ویرایش وام</li>
-			<li>امکان مشاهده سررسید های نزدیک وام ها</li>
+			<li>امکان مشاهده سررسید های نزدیک</li>
 		</ol>
 
-		<%
-			User currenUser = (User) request.getAttribute("currentUser");
-		%>
-		<%
-			if (currentUser == null) {
-		%>
+		<% User currenUser = (User) request.getAttribute("currentUser"); %>
+		
+		<% if (currentUser == null) { %>
 		<p>
-			<b> برای شروع ثبت نام کنید: <a
-				href="<%=request.getContextPath()%>/Users.register">ثبت نام</a></b>
+			<a href="<%=request.getContextPath()%>/Users.register"> <b>
+					برای شروع ثبت نام کنید.</b></a>
 		</p>
 		<p>
-			<b>یا وارد شوید: <a
-				href="<%=request.getContextPath()%>/Users.login">ورود</a></b>
+			<a href="<%=request.getContextPath()%>/Users.login"> <b> یا
+					وارد شوید.</b></a>
 		</p>
 
-		<%
-			}
-		%>
+		<% } else {	%>
+		<p>
+			<a href="<%=request.getContextPath()%>/Payments.showNear">
+				<b>
+					سررسید های نزدیک را ببینید.
+				</b>
+			</a>
+		</p>
+		<% } %>
 	</div>
 </div>
 

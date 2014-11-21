@@ -1,12 +1,16 @@
 package com.hajihamedan.loan.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hajihamedan.loan.helper.Security;
+import com.hajihamedan.loan.helper.Validation;
 import com.hajihamedan.loan.model.Domain;
+import com.hajihamedan.loan.model.Payment;
 import com.hajihamedan.loan.model.PaymentRepo;
 import com.hajihamedan.loan.model.User;
 
@@ -64,10 +68,58 @@ public class Payments extends Controller {
 
 		request.setAttribute("pageTitle", "مشاهده اقساط و سررسیدهای نزدیک");
 		request.setAttribute("payments", payments);
+		request.setAttribute("days", days);
 		request.setAttribute("startDate", today);
 		request.setAttribute("endDate", week);
 		return "showNearPayments.jsp";
+	}
 
+	public String paidChange(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+
+		String status = "success";
+		String message = "";
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		String inputPaymentId = Security.clean(request.getParameter("paymentId"));
+		String inputIsChecked = Security.clean(request.getParameter("isChecked"));
+
+		String[] paymentIdRules = { "required", "int" };
+		String[] isCheckedRules = { "required" };
+
+		Validation validator = new Validation();
+		validator.setItem("مشخصه قسط", inputPaymentId, paymentIdRules);
+		validator.setItem("پرداخت شده یا نشده", inputIsChecked, isCheckedRules);
+
+		if (!validator.isValid()) {
+			status = "error";
+			message = validator.getMessage();
+		} else {
+			int paymentId = Integer.parseInt(inputPaymentId);
+			Payment payment = Payment.loadById(paymentId);
+
+			System.out.println(payment.getUserId());
+			System.out.println(currentUser.getUserId());
+
+			if (payment.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+				status = "error";
+				message = "شما اجازه ی این کار را ندارید.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
+			if (inputIsChecked.equals("true")) {
+				payment.setIsPaid((byte) 1);
+			} else {
+				payment.setIsPaid((byte) 0);
+			}
+			payment.persist();
+
+			if (status == "success") {
+				message = " عملیات با موفقیت انجام شد.";
+			}
+		}
+		this.ajaxResponse(response, status, message);
+		return null;
 	}
 
 }

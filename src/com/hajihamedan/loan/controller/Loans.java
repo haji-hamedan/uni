@@ -179,6 +179,7 @@ public class Loans extends Controller {
 			payment.setPayDate(paymentDate);
 			payment.setCreateDate(today);
 			payment.setUserId(userId);
+			payment.setIsPaid((byte) 0);
 			payment.persist();
 
 			cl.add(Calendar.MONTH, monthDiff);

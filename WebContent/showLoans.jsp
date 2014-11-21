@@ -1,3 +1,4 @@
+<%@page import="com.hajihamedan.loan.helper.numberDelimiter"%>
 <%@page import="com.hajihamedan.loan.helper.JalaliCalendar"%>
 <%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -11,7 +12,7 @@
 				<th>مشخصه</th>
 				<th>عنوان</th>
 				<th>مقدار</th>
-				<th>نرخ بهره</th>
+				<th>نرخ بهره (درصد)</th>
 				<th>تعداد اقساط</th>
 				<th>بازپرداخت</th>
 				<th>اولین باز پرداخت</th>
@@ -31,7 +32,7 @@
 			<tr data-loan-id='<%=loan.getLoanId()%>'>
 				<td><%=loan.getLoanId()%></td>
 				<td><%=loan.getTitle()%></td>
-				<td><%=loan.getAmount()%> تومان</td>
+				<td><%=numberDelimiter.addDelimiter(loan.getAmount())%> تومان</td>
 				<td><%=loan.getInterestRate()%></td>
 				<td><%=loan.getPaymentCount()%></td>
 				<td><%=loan.PAYMENTS[loan.getPaymentFrequency()]%></td>

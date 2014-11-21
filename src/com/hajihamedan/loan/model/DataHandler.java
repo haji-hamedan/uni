@@ -16,6 +16,7 @@ public class DataHandler {
 	private final String password = "123456";
 	private static Connection conn;
 	private Statement statement;
+	private ResultSet resultSet;
 
 	private DataHandler() throws ClassNotFoundException, SQLException {
 		// Load oracle driver.
@@ -46,8 +47,8 @@ public class DataHandler {
 		System.out.println(query);
 
 		statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		ResultSet result = statement.executeQuery(query);
-		return result;
+		resultSet = statement.executeQuery(query);
+		return resultSet;
 	}
 
 	public ResultSet select(String tableName) throws Exception {

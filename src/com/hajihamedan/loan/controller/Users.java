@@ -292,6 +292,26 @@ public class Users extends Controller {
 			String mobile = inputMobile;
 			String isAdmin = inputIsAdmin;
 
+			if (!user.getUsername().equals(userName)) {
+				User existUserByUsername = User.loadByUsername(userName);
+				if (existUserByUsername != null) {
+					status = "error";
+					message = "این نام کاربری پیش از این ثبت شده است.";
+					this.ajaxResponse(response, status, message);
+					return null;
+				}
+			}
+
+			if (!user.getEmail().equals(email)) {
+				User existUserByEmail = User.loadByEmail(email);
+				if (existUserByEmail != null) {
+					status = "error";
+					message = "این ایمیل   پیش از این ثبت شده است.";
+					this.ajaxResponse(response, status, message);
+					return null;
+				}
+			}
+
 			user.setUsername(userName);
 			user.setEmail(email);
 			user.setFirstName(firstName);
