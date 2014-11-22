@@ -13,6 +13,7 @@
 			<li>محاسبه اقساط و سررسید وام ها</li>
 			<li>امکان حذف و ویرایش وام</li>
 			<li>امکان مشاهده سررسید های نزدیک</li>
+			<li>ارسال سررسیدهای نزدیک به وسیله ایمیل</li>
 		</ol>
 
 		<% User currenUser = (User) request.getAttribute("currentUser"); %>
