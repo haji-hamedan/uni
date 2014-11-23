@@ -17,7 +17,10 @@
 			.getFirstPaymentDate());
 %>
 
-<div id="response-message" class="row" style="display: none"></div>
+
+<div class="row">
+	<div id="response-message"  class="small-12 columns" style="display: none"></div>
+</div>
 
 <div class="row">
 	<div class="large-12 medium-12 columns">
@@ -143,6 +146,12 @@
 				type : 'post',
 				data : form.serialize(),
 				success : function(data) {
+					if(data.status == "success"){
+						response.removeClass("error");
+					} else {
+						response.addClass("error");	
+					}
+					
 					response.stop(true).fadeOut(function() {
 						response.html(data.msg);
 						response.fadeIn(function() {

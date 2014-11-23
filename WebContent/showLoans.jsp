@@ -6,10 +6,14 @@
 <div class="row">
 	<div class="large-12 columns">
 		<h1>نمایش وام ها</h1>
-		<div id="response-message" class="row" style="display: none"></div>
+		
+		<div class="row">
+			<div id="response-message"  class="small-12 columns" style="display: none"></div>
+		</div>
+		
 		<table>
 			<tr>
-				<th>مشخصه</th>
+				<th>ردیف</th>
 				<th>عنوان</th>
 				<th>مقدار</th>
 				<th>نرخ بهره (درصد)</th>
@@ -24,13 +28,15 @@
 				Vector loans = (Vector) request.getAttribute("loans");
 				Enumeration allLoans = loans.elements();
 				JalaliCalendar jl = new JalaliCalendar();
+				int i = 0;
 				while (allLoans.hasMoreElements()) {
+					i++;
 					Loan loan = (Loan) allLoans.nextElement();
 					String firstPaymentDate = jl.GregorianToPersian(loan
 							.getFirstPaymentDate());
 			%>
 			<tr data-loan-id='<%=loan.getLoanId()%>'>
-				<td><%=loan.getLoanId()%></td>
+				<td><%=i%></td>
 				<td><%=loan.getTitle()%></td>
 				<td><%=numberDelimiter.addDelimiter(loan.getAmount())%> تومان</td>
 				<td><%=loan.getInterestRate()%></td>
@@ -77,6 +83,12 @@
 					loanId : loanId
 				},
 				success : function(data) {
+					if(data.status == "success"){
+						response.removeClass("error");
+					} else {
+						response.addClass("error");	
+					}
+					
 					response.stop(true).fadeOut(function() {
 						response.html(data.msg);
 						response.fadeIn();

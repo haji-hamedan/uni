@@ -90,3 +90,9 @@ tr.paid{
 tr.unpaid td, tr.paid td{
 	color: white !important;
 }
+#response-message{
+	margin-bottom: 1em;
+}
+#response-message.error{
+	color: red;
+}

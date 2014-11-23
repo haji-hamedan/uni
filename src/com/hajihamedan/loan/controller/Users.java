@@ -342,4 +342,41 @@ public class Users extends Controller {
 		return null;
 	}
 
+	public String deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+
+		String status = "success";
+		String message = "";
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		String inputUserId = Security.clean(request.getParameter("userId"));
+
+		String[] userIdRules = { "required", "int" };
+
+		Validation validator = new Validation();
+		validator.setItem("مشخصه وام", inputUserId, userIdRules);
+
+		if (!validator.isValid()) {
+			status = "error";
+			message = validator.getMessage();
+		} else {
+			int userId = Integer.parseInt(inputUserId);
+			User user = User.loadById(userId);
+
+			if (currentUser.getIsAdmin() == 0) {
+				status = "error";
+				message = "شما اجازه ی این کار را ندارید.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
+			UserRepo userRepo = new UserRepo();
+			userRepo.deleteById(userId);
+
+			if (status == "success") {
+				message = "حذف وام با موفقیت انجام شد.";
+			}
+		}
+		this.ajaxResponse(response, status, message);
+		return null;
+	}
 }

@@ -9,7 +9,9 @@
 	</div>
 </div>
 
-<div id="response-message" class="row" style="display: none"></div>
+<div class="row">
+	<div id="response-message"  class="small-12 columns" style="display: none"></div>
+</div>
 
 <div class="row">
 	<div class="large-12 medium-12 columns">
@@ -20,7 +22,7 @@
 					<label for="username">نام کاربری</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
-					<input id="username" name="username" type="text" autofocus="autofocus" />
+					<input id="username" name="username" type="text" autofocus="autofocus" data-required=''/>
 				</div>
 				<div class="columns"></div>
 			</div>
@@ -109,6 +111,12 @@
 				type : 'post',
 				data : form.serialize(),
 				success : function(data) {
+					if(data.status == "success"){
+						response.removeClass("error");
+					} else {
+						response.addClass("error");	
+					}
+					
 					response.stop(true).fadeOut(function() {
 						response.html(data.msg);
 						response.fadeIn(function(){

@@ -38,9 +38,7 @@
 			<%
 				if (currentUser != null) {
 			%>
-			<div class='main-menu-item'>
-				<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
-			</div>
+			
 			<%
 				if (currentUser.getIsAdmin() == 1) {
 			%>
@@ -59,6 +57,9 @@
 			<%
 				} else {
 			%>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Loans.add">ثبت وام</a>
+			</div>
 			<div class='main-menu-item'>
 				<a href="<%=request.getContextPath()%>/Loans.showAll">وام های من</a>
 			</div>

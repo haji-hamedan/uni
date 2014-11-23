@@ -56,21 +56,25 @@ public class Email extends Controller {
 				condition += " and payDate >= " + today + " and payDate <= " + week;
 				payments = paymentRepo.loadByCondition(condition, "payDate", "asc");
 
-				emailContent = "";
-				emailContent += "<div style='direction: rtl; text-align:right; font-family: tahoma;'>";
-				emailContent += "<a href=" + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-						+ request.getContextPath() + "><h1>سایت مدیریت اقساط و وام</h1></a>";
-				emailContent += "<h2>سررسید های این هفته ی شما:</h2>";
-				emailContent += "<div style='max-width: 800px; margin: 0; padding: 30px 0;font-family: tahoma;direction: rtl;'>";
-				emailContent += "<table width='80%' border='1' cellpadding='0' cellspacing='0' dir='rtl'>";
-				emailContent += "<tr>";
-				emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>وام</th>";
-				emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>مقدار</th>";
-				emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>تاریخ</th>";
-				emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>پرداخت شده؟</th>";
-				emailContent += "</tr>";
+				if (payments.isEmpty()) {
+					statusMsg += "<div style='color: black;font-size: 120%;line-height: 2em;'>" + "سررسید نزدیکی برای ارسال به " + user.getEmail()
+							+ " موجود نبود." + "</div>";
+				} else {
 
-				if (!payments.isEmpty()) {
+					emailContent = "";
+					emailContent += "<div style='direction: rtl; text-align:right; font-family: tahoma;'>";
+					emailContent += "<a href=" + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+							+ request.getContextPath() + "><h1>سایت مدیریت اقساط و وام</h1></a>";
+					emailContent += "<h2>سررسید های این هفته ی شما:</h2>";
+					emailContent += "<div style='max-width: 800px; margin: 0; padding: 30px 0;font-family: tahoma;direction: rtl;'>";
+					emailContent += "<table width='80%' border='1' cellpadding='0' cellspacing='0' dir='rtl'>";
+					emailContent += "<tr>";
+					emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>وام</th>";
+					emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>مقدار</th>";
+					emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>تاریخ</th>";
+					emailContent += "<th style='padding: 1em;font-family: tahoma;text-align: center;'>پرداخت شده؟</th>";
+					emailContent += "</tr>";
+
 					Enumeration<Domain> allPayments = payments.elements();
 					while (allPayments.hasMoreElements()) {
 						Payment payment = (Payment) allPayments.nextElement();
@@ -94,17 +98,17 @@ public class Email extends Controller {
 						emailContent += "<td style='padding: 1em;font-family: tahoma;'>" + paidStatus + "</td>";
 						emailContent += "</tr>";
 					}
-				}
-				emailContent += "</table></div></div>";
+					emailContent += "</table></div></div>";
 
-				// send email
-				String to = user.getEmail();
+					// send email
+					String to = user.getEmail();
 
-				boolean isSend = this.sendingEmail(request, response, to, subject, emailContent);
-				if (isSend) {
-					statusMsg += "<div style='color: green;font-size: 120%;line-height: 2em;'>" + "ایمیل به " + to + " ارسال شد." + "</div>";
-				} else {
-					statusMsg += "<div style='color: red;font-size: 120%;line-height: 2em;'>" + "ایمیل به " + to + " ارسال نشد." + "</div>";
+					boolean isSend = this.sendingEmail(request, response, to, subject, emailContent);
+					if (isSend) {
+						statusMsg += "<div style='color: green;font-size: 120%;line-height: 2em;'>" + "ایمیل به " + to + " ارسال شد." + "</div>";
+					} else {
+						statusMsg += "<div style='color: red;font-size: 120%;line-height: 2em;'>" + "ایمیل به " + to + " ارسال نشد." + "</div>";
+					}
 				}
 			}
 		}

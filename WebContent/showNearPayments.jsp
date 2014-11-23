@@ -42,7 +42,10 @@
 			</div>
 		</div>
 
-		<div id="response-message" class="row" style="display: none"></div>
+		<div class="row">
+			<div id="response-message"  class="small-12 columns" style="display: none"></div>
+		</div>
+		
 		<table>
 			<tr>
 				<th>مشخصه</th>
@@ -54,7 +57,9 @@
 			<%
 				Vector payments = (Vector) request.getAttribute("payments");
 				Enumeration allPayments = payments.elements();
+				int i = 0;
 				while (allPayments.hasMoreElements()) {
+					i++;
 					Payment payment = (Payment) allPayments.nextElement();
 					Loan loan = Loan.loadById(payment.getLoanId());
 					JalaliCalendar jl3 = new JalaliCalendar();
@@ -68,7 +73,7 @@
 					}
 			%>
 			<tr class="<%= isPaidClass %>">
-				<td><%=payment.getPaymentId()%></td>
+				<td><%=i%></td>
 				<td><%=loan.getTitle()%></td>
 				<td><%=numberDelimiter.addDelimiter(payment.getAmount())%> تومان</td>
 				<td><%=paymentDate%></td>
@@ -110,6 +115,12 @@ $(document).ready(function() {
 				isChecked: isChecked
 			},
 			success : function(data) {
+				if(data.status == "success"){
+					response.removeClass("error");
+				} else {
+					response.addClass("error");	
+				}
+				
 				response.stop(true).fadeOut(function() {
 					response.html(data.msg);
 					response.fadeIn();

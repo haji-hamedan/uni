@@ -20,7 +20,7 @@
 		<p>نام: <%=user.getFirstName()%></p>
 		<p>نام خانوادگی: <%=user.getLastName()%></p>
 		<p>موبایل: <%=user.getMobile()%></p>
-		<p>مدبر بودن: <input type="checkbox" <%=isAdminCheckBox%>
+		<p>مدیر بودن: <input type="checkbox" <%=isAdminCheckBox%>
 			readonly="readonly" disabled="disabled"></p>
 
 	</div>
