@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hajihamedan.loan.helper.JalaliCalendar;
-import com.hajihamedan.loan.helper.numberDelimiter;
+import com.hajihamedan.loan.helper.NumberDelimiter;
 import com.hajihamedan.loan.model.Domain;
 import com.hajihamedan.loan.model.Loan;
 import com.hajihamedan.loan.model.Payment;
@@ -92,7 +92,7 @@ public class Email extends Controller {
 
 						emailContent += "<tr style='color: white; background-color: " + paidColor + "'>";
 						emailContent += "<td style='padding: 1em;font-family: tahoma;'>" + loanTitle + "</td>";
-						emailContent += "<td style='padding: 1em;font-family: tahoma;'>" + numberDelimiter.addDelimiter(payment.getAmount())
+						emailContent += "<td style='padding: 1em;font-family: tahoma;'>" + NumberDelimiter.addDelimiter(payment.getAmount())
 								+ " تومان</td>";
 						emailContent += "<td style='padding: 1em;font-family: tahoma;text-align: center;'>" + paymentDate + "</td>";
 						emailContent += "<td style='padding: 1em;font-family: tahoma;'>" + paidStatus + "</td>";

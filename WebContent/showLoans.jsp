@@ -1,4 +1,4 @@
-<%@page import="com.hajihamedan.loan.helper.numberDelimiter"%>
+<%@page import="com.hajihamedan.loan.helper.NumberDelimiter"%>
 <%@page import="com.hajihamedan.loan.helper.JalaliCalendar"%>
 <%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -26,19 +26,17 @@
 			</tr>
 			<%
 				Vector loans = (Vector) request.getAttribute("loans");
-				Enumeration allLoans = loans.elements();
-				JalaliCalendar jl = new JalaliCalendar();
-				int i = 0;
-				while (allLoans.hasMoreElements()) {
-					i++;
-					Loan loan = (Loan) allLoans.nextElement();
-					String firstPaymentDate = jl.GregorianToPersian(loan
-							.getFirstPaymentDate());
-			%>
-			<tr data-loan-id='<%=loan.getLoanId()%>'>
-				<td><%=i%></td>
-				<td><%=loan.getTitle()%></td>
-				<td><%=numberDelimiter.addDelimiter(loan.getAmount())%> تومان</td>
+					Enumeration allLoans = loans.elements();
+					JalaliCalendar jl = new JalaliCalendar();
+					int i = 0;
+					while (allLoans.hasMoreElements()) {
+						i++;
+						Loan loan = (Loan) allLoans.nextElement();
+						String firstPaymentDate = jl.GregorianToPersian(loan
+								.getFirstPaymentDate());
+			tr data-loan-id='<%=loan.getloan.getLoanId()		<td><%=i%></td>i
+				<td><%=loan.getloan.getTitle()
+				<td><%=numberDeNumberDelimiter.addDelimiter(loan.getAmount())</td>
 				<td><%=loan.getInterestRate()%></td>
 				<td><%=loan.getPaymentCount()%></td>
 				<td><%=loan.PAYMENTS[loan.getPaymentFrequency()]%></td>

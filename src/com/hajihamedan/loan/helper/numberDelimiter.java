@@ -1,25 +1,25 @@
 package com.hajihamedan.loan.helper;
 
-public class numberDelimiter {
+public class NumberDelimiter {
 
 	public static String addDelimiter(int number) {
 		String numberString = String.valueOf(number);
 
-		String numberWithDelimiter = numberDelimiter.build(numberString);
+		String numberWithDelimiter = NumberDelimiter.build(numberString);
 		return numberWithDelimiter;
 	}
 
 	public static String addDelimiter(long number) {
 		String numberString = String.valueOf(number);
 
-		String numberWithDelimiter = numberDelimiter.build(numberString);
+		String numberWithDelimiter = NumberDelimiter.build(numberString);
 		return numberWithDelimiter;
 	}
 
 	public static String addDelimiter(byte number) {
 		String numberString = String.valueOf(number);
 
-		String numberWithDelimiter = numberDelimiter.build(numberString);
+		String numberWithDelimiter = NumberDelimiter.build(numberString);
 		return numberWithDelimiter;
 	}
 

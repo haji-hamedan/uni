@@ -1,4 +1,4 @@
-<%@page import="com.hajihamedan.loan.helper.numberDelimiter"%>
+<%@page import="com.hajihamedan.loan.helper.NumberDelimiter"%>
 <%@page import="com.hajihamedan.loan.helper.JalaliCalendar"%>
 <%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -56,26 +56,23 @@
 			</tr>
 			<%
 				Vector payments = (Vector) request.getAttribute("payments");
-				Enumeration allPayments = payments.elements();
-				int i = 0;
-				while (allPayments.hasMoreElements()) {
-					i++;
-					Payment payment = (Payment) allPayments.nextElement();
-					Loan loan = Loan.loadById(payment.getLoanId());
-					JalaliCalendar jl3 = new JalaliCalendar();
-					String paymentDate = jl3.GregorianToPersian(payment.getPayDate());
-					
-					String isPaidChecked = "";
-					String isPaidClass = "unpaid";
-					if(payment.getIsPaid() == 1){
-						isPaidChecked = "checked=''";
-						isPaidClass = "paid";
-					}
-			%>
-			<tr class="<%= isPaidClass %>">
-				<td><%=i%></td>
-				<td><%=loan.getTitle()%></td>
-				<td><%=numberDelimiter.addDelimiter(payment.getAmount())%> تومان</td>
+					Enumeration allPayments = payments.elements();
+					int i = 0;
+					while (allPayments.hasMoreElements()) {
+						i++;
+						Payment payment = (Payment) allPayments.nextElement();
+						Loan loan = Loan.loadById(payment.getLoanId());
+						JalaliCalendar jl3 = new JalaliCalendar();
+						String paymentDate = jl3.GregorianToPersian(payment.getPayDate());
+						
+						String isPaidChecked = "";
+						String isPaidClass = "unpaid";
+						if(payment.getIsPaid() == 1){
+							isPaidChecked = "checked=''";
+							isPaidClass = "paid";
+						}
+			s="<%= isPaidClass %>isPaidClass><%=i%></td>
+			i<td><%=loan.getTitleloan.getTitle()<td><%=numberDelimitNumberDelimiter.addDelimiter(payment.getAmount())
 				<td><%=paymentDate%></td>
 				<td class='text-center'><input type="checkbox" name="is-paid" data-id="<%= payment.getPaymentId() %>" value="<%=payment.getIsPaid()%>" <%=isPaidChecked %> autocomplete="off"></td>
 			</tr>
