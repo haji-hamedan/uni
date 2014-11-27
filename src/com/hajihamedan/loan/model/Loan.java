@@ -16,8 +16,7 @@ public class Loan extends Domain {
 
 	public static final String[] PAYMENTS = { null, "سالیانه", "ماهیانه" };
 
-	public String[] dbProps = { "loanId", "title", "amount", "interestRate",
-			"paymentCount", "paymentFrequency", "firstPaymentDate", "createDate",
+	public String[] dbProps = { "loanId", "title", "amount", "interestRate", "paymentCount", "paymentFrequency", "firstPaymentDate", "createDate",
 			"userId" };
 
 	public Loan() {
@@ -69,7 +68,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param title
-	 *          the title to set
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -84,7 +83,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param amount
-	 *          the amount to set
+	 *            the amount to set
 	 */
 	public void setAmount(long amount) {
 		this.amount = amount;
@@ -99,7 +98,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param rate
-	 *          the rate to set
+	 *            the rate to set
 	 */
 	public void setInterestRate(byte interestRate) {
 		this.interestRate = interestRate;
@@ -114,7 +113,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param paymentCount
-	 *          the paymentCount to set
+	 *            the paymentCount to set
 	 */
 	public void setPaymentCount(short paymentCount) {
 		this.paymentCount = paymentCount;
@@ -129,7 +128,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param paymentFrequency
-	 *          the paymentFrequency to set
+	 *            the paymentFrequency to set
 	 */
 	public void setPaymentFrequency(byte paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
@@ -144,10 +143,10 @@ public class Loan extends Domain {
 
 	/**
 	 * @param today
-	 *          the firstPaymentDate to set
+	 *            the firstPaymentDate to set
 	 */
-	public void setFirstPaymentDate(long today) {
-		this.firstPaymentDate = today;
+	public void setFirstPaymentDate(long firstPaymentDate) {
+		this.firstPaymentDate = firstPaymentDate;
 	}
 
 	/**
@@ -159,7 +158,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param today
-	 *          the createDate to set
+	 *            the createDate to set
 	 */
 	public void setCreateDate(long today) {
 		this.createDate = today;
@@ -174,7 +173,7 @@ public class Loan extends Domain {
 
 	/**
 	 * @param userId
-	 *          the userId to set
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
