@@ -17,9 +17,7 @@ public class PaymentRepo extends Repo {
 	}
 
 	public void deleteByLoanId(int loanId) throws Exception {
-		DataHandler dh = DataHandler.getInstance();
-
 		String condition = " loanId = " + loanId;
-		dh.delete(this.tableName, condition);
+		this.deleteByCondition(condition);
 	}
 }
