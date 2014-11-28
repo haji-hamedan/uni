@@ -34,9 +34,11 @@
 						Loan loan = (Loan) allLoans.nextElement();
 						String firstPaymentDate = jl.GregorianToPersian(loan
 								.getFirstPaymentDate());
-			tr data-loan-id='<%=loan.getloan.getLoanId()		<td><%=i%></td>i
-				<td><%=loan.getloan.getTitle()
-				<td><%=numberDeNumberDelimiter.addDelimiter(loan.getAmount())</td>
+						%>
+			<tr data-loan-id='<%=loan.getLoanId() %>' >
+				<td><%=i%></td>
+				<td><%=loan.getTitle() %> </td>
+				<td><%=NumberDelimiter.addDelimiter(loan.getAmount()) %></td>
 				<td><%=loan.getInterestRate()%></td>
 				<td><%=loan.getPaymentCount()%></td>
 				<td><%=loan.PAYMENTS[loan.getPaymentFrequency()]%></td>

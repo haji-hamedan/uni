@@ -58,7 +58,7 @@ public class Email extends Controller {
 
 				if (payments.isEmpty()) {
 					statusMsg += "<div style='color: black;font-size: 120%;line-height: 2em;'>" + "سررسید نزدیکی برای ارسال به " + user.getEmail()
-							+ " موجود نبود." + "</div>";
+							+ " موجود نیست." + "</div>";
 				} else {
 
 					emailContent = "";

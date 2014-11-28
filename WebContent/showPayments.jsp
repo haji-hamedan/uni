@@ -36,12 +36,14 @@
 							isPaidChecked = "checked=''";
 							isPaidClass = "paid";
 						}
-			tr class="<%= isPaidCisPaidClass				<td><%=i%></ti>
-				<td><%= loan.loan.getTitle()td>
-				<td><%=numbNumberDelimiter.addDelimiter(payment.getAmount())ومان</td>
-				<td><%=paymentDate%></td>
-				<td class='text-center'><input type="checkbox" name="is-paid" data-id="<%= payment.getPaymentId() %>" value="<%=payment.getIsPaid()%>" <%=isPaidChecked %> autocomplete="off"></td>
-			</tr>
+						%>
+						<tr class="<%= isPaidClass %>">
+							<td><%=i%></td>
+							<td><%=loan.getTitle() %></td>
+							<td><%=NumberDelimiter.addDelimiter(payment.getAmount()) %> </td>
+							<td><%=paymentDate%></td>
+							<td class='text-center'><input type="checkbox" name="is-paid" data-id="<%= payment.getPaymentId() %>" value="<%=payment.getIsPaid()%>" <%=isPaidChecked %> autocomplete="off"></td>
+						</tr>
 			<%
 				}
 			%>

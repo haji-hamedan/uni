@@ -13,8 +13,8 @@
 			%>
 			<p>مشخصه وام: <%=loan.getLoanId()%></p>
 			<p>عنوان وام: <%=loan.getTitle()%></p>
-			<p>مقدار وام: <%=NumberDelimiter.addDelimiter(loan.getAmount())%> تومان</p>
-			<p>تعداد اقساط: <%=loan.getPaymentCount()) %></p>
+			<p>مقدار وام: <%=	NumberDelimiter.addDelimiter(loan.getAmount())%> تومان</p>
+			<p>تعداد اقساط: <%=loan.getPaymentCount() %></p>
 			<p>دوره اقساط: <Loan.getPaymentFrequencyName(loan.getPaymentFrequency())()) %></p>
 			<p>اولین قسط:firstPaymentDatetDate %></p>
 			
@@ -24,7 +24,7 @@
 					<th>مقدار</th>
 					<th>تاریخ</th>
 					<th>پرداخت شده</th>
-				</tr>
+				</tr><%
 				Vector payments = (Vector) loan.getPayments();
 					Enumeration allPayments = payments.elements();
 					int i = 0;
@@ -40,8 +40,10 @@
 							isPaidChecked = "checked=''";
 							isPaidClass = "paid";
 						}
-			<tr class="<%= isPaidCisPaidClass					<td><%= i %><itd>
-					<td><%=numbNumberDelimiter.addDelimiter(payment.getAmount())ومان</td>
+%>
+			<tr class="<%= isPaidClass %>" >
+					<td><%= i %></td>
+					<td><%=NumberDelimiter.addDelimiter(payment.getAmount()) %>تومان </td>
 					<td><%=paymentDate%></td>
 					<td class='text-center'><input type="checkbox" name="is-paid" data-id="<%= payment.getPaymentId() %>" value="<%=payment.getIsPaid()%>" <%=isPaidChecked %> autocomplete="off" disabled="disabled"></td>
 				</tr>
