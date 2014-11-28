@@ -360,7 +360,6 @@ public class Users extends Controller {
 			message = validator.getMessage();
 		} else {
 			int userId = Integer.parseInt(inputUserId);
-			User user = User.loadById(userId);
 
 			if (currentUser.getIsAdmin() == 0) {
 				status = "error";
