@@ -45,7 +45,8 @@ public class Front extends HttpServlet {
 
 			// main page of application
 			if (pathLength == 0) {
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				className = "Index";
+				methodName = "index";
 			} else {
 
 				try {
@@ -62,17 +63,18 @@ public class Front extends HttpServlet {
 					methodName = "index";
 				}
 
-				className = className.substring(0, 1).toUpperCase() + className.substring(1);
+			}
 
-				Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller." + className);
+			className = className.substring(0, 1).toUpperCase() + className.substring(1);
 
-				Method m = ctrlClass.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
+			Class<?> ctrlClass = Class.forName("com.hajihamedan.loan.controller." + className);
 
-				String forward = (String) m.invoke(ctrlClass.newInstance(), request, response);
+			Method m = ctrlClass.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
 
-				if (forward != null) {
-					request.getRequestDispatcher(forward).forward(request, response);
-				}
+			String forward = (String) m.invoke(ctrlClass.newInstance(), request, response);
+
+			if (forward != null) {
+				request.getRequestDispatcher(forward).forward(request, response);
 			}
 
 		} catch (Exception e) {

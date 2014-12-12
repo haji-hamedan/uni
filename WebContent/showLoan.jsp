@@ -15,8 +15,8 @@
 			<p>عنوان وام: <%=loan.getTitle()%></p>
 			<p>مقدار وام: <%=	NumberDelimiter.addDelimiter(loan.getAmount())%> تومان</p>
 			<p>تعداد اقساط: <%=loan.getPaymentCount() %></p>
-			<p>دوره اقساط: <Loan.getPaymentFrequencyName(loan.getPaymentFrequency())()) %></p>
-			<p>اولین قسط:firstPaymentDatetDate %></p>
+			<p>دوره اقساط: <%= Loan.getPaymentFrequencyName(loan.getPaymentFrequency()) %></p>
+			<p>اولین قسط:<%= firstPaymentDate %></p>
 			
 			<table>
 				<tr>
