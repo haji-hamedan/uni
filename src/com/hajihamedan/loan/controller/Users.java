@@ -378,4 +378,92 @@ public class Users extends Controller {
 		this.ajaxResponse(response, status, message);
 		return null;
 	}
+
+	public String changePassword(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		User user = User.loadById(userId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (user.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			request.setAttribute("message", "شما اجازه ی این کار را ندارید.");
+			return "error.jsp";
+		}
+
+		request.setAttribute("user", user);
+		request.setAttribute("pageTitle", "تغییر رمز عبور");
+		return "changePassword.jsp";
+	}
+
+	public String submitChangePassword(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+		String status = "success";
+		String message = "";
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		User user = User.loadById(userId);
+		User currentUser = (User) request.getAttribute("currentUser");
+
+		if (user.getUserId() != currentUser.getUserId() && currentUser.getIsAdmin() == 0) {
+			status = "error";
+			message = "شما اجازه ی این کار را ندارید.";
+			this.ajaxResponse(response, status, message);
+			return null;
+		}
+
+		String inputOldPass = Security.clean(request.getParameter("old-password"));
+		String inputNewPass = Security.clean(request.getParameter("new-password"));
+		String inputConfirmNewPass = Security.clean(request.getParameter("confirm-new-password"));
+
+		String[] oldPassRules = { "required" };
+		String[] newPassRules = { "required" };
+		String[] confirmNewPassRules = { "required" };
+
+		Validation validator = new Validation();
+		validator.setItem("رمز عبور فعلی", inputOldPass, oldPassRules);
+		validator.setItem("رمز عبور جدید", inputNewPass, newPassRules);
+		validator.setItem("تکرار رمز عبور جدید", inputConfirmNewPass, confirmNewPassRules);
+
+		if (!validator.isValid()) {
+			status = "error";
+			message = validator.getMessage();
+		} else {
+			String oldPass = inputOldPass;
+			String newPass = inputNewPass;
+			String confirmNewPass = inputConfirmNewPass;
+
+			if (!newPass.equals(confirmNewPass)) {
+				status = "error";
+				message = "رمز عبور جدید و تکرار رمز عبور جدید هم خوانی ندارند.";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
+			String encryptedOldPassword = this.encryptPassword(oldPass);
+
+			if (!encryptedOldPassword.equals(user.getPassword())) {
+				status = "error";
+				message = "رمز عبور فعلی اشتباه است!";
+				this.ajaxResponse(response, status, message);
+				return null;
+			}
+
+			String encryptedNewPassword = this.encryptPassword(newPass);
+			user.setPassword(encryptedNewPassword);
+
+			try {
+				user = (User) user.persist();
+			} catch (Exception e) {
+				status = "error";
+				message = e.getMessage();
+				e.printStackTrace();
+			}
+
+			if (status == "success") {
+				message = " تغییر رمز عبور با موفقیت انجام شد.";
+			}
+		}
+		this.ajaxResponse(response, status, message);
+		return null;
+	}
 }

@@ -73,9 +73,13 @@
 					من</a>
 			</div>
 			<div class='main-menu-item'>
-				<a
-					href="<%=request.getContextPath()%>/Users.edit?userId=<%=request.getAttribute("currentUserId")%>">
+				<a href="<%=request.getContextPath()%>/Users.edit?userId=<%=request.getAttribute("currentUserId")%>">
 					ویرایش اطلاعات کاربری</a>
+			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Users.changePassword?userId=<%=request.getAttribute("currentUserId")%>">
+					تغییر رمز عبور
+				</a>
 			</div>
 			<%
 				}
