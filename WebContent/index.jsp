@@ -31,6 +31,22 @@
 					وارد شوید.</b></a>
 		</p>
 
+		<% } else if(currentUser.getIsAdmin() == 1){ %>
+			<h1>مدیریت سیستم</h1>
+			<hr>
+			 
+			<p>
+				<a href="<%=request.getContextPath()%>/Loans.showAll">وام های
+					ثبت شده در سیستم</a>
+			</p>
+			<p>
+				<a href="<%=request.getContextPath()%>/Payments.showAll">اقساط
+					ثبت شده در سیستم</a>
+			</p>
+			<p>
+				<a href="<%=request.getContextPath()%>/Users.showAll">لیست
+					کاربران</a>
+			</p>
 		<% } else {	%>
 			<%
 				long startDate = Long.parseLong(request.getAttribute("startDate")
@@ -103,7 +119,7 @@
 			%>
 			<hr>
 			<p>
-				<a href="<%=request.getContextPath()%>/Payments.showNear?days=15">
+				<a href="<%=request.getContextPath()%>/Payments.showNear?days=30">
 					<b>
 						دیگر سررسید های نزدیک را ببینید.
 					</b>
