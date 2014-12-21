@@ -13,14 +13,15 @@
 		<p>به نرم افزار محاسبه اقساط و سررسید وام ها خوش آمدید.</p>
 		
 		<h4>امکانات این نرم افزار:</h4>
-		<ol>
+		<ul>
 			<li>ایجاد حساب کاربری</li>
 			<li>ثبت وام</li>
 			<li>محاسبه اقساط و سررسید وام ها</li>
 			<li>امکان حذف و ویرایش وام</li>
 			<li>امکان مشاهده سررسید های نزدیک</li>
 			<li>ارسال سررسیدهای نزدیک به وسیله ایمیل</li>
-		</ol>
+			<li>تعیین پرداخت یا عدم پرداخت قسط</li>
+		</ul>
 		
 		<p>
 			<a href="<%=request.getContextPath()%>/Users.register"> <b>
@@ -46,6 +47,9 @@
 			<p>
 				<a href="<%=request.getContextPath()%>/Users.showAll">لیست
 					کاربران</a>
+			</p>
+			<p>
+				<a href="<%=request.getContextPath()%>/Email.sendEmail">ارسال ایمیل</a>
 			</p>
 		<% } else {	%>
 			<%
@@ -149,7 +153,6 @@ $(document).ready(function() {
 		var isChecked = this.checked;
 		var paymentId = isPaidInput.attr('data-id');
 	
-		response.html('لطفاً منتظر بمانید...').fadeIn();
 		if (ajax_request) {
 			ajax_request.abort();
 		}
@@ -163,18 +166,15 @@ $(document).ready(function() {
 				isChecked: isChecked
 			},
 			success : function(data) {
-				if(data.status == "success"){
-					response.removeClass("error");
-				} else {
+				if(data.status != "success"){
 					response.addClass("error");	
-				}
-				
-				response.stop(true).fadeOut(function() {
-					response.html(data.msg);
-					response.fadeIn();
-				});
-				
-				if (data.status == "success") {
+					response.stop(true).fadeOut(function() {
+						response.html(data.msg);
+						response.fadeIn();
+					});
+				} else {
+					response.removeClass("error");
+					response.stop(true).fadeOut();
 					if(isChecked === true){
 						isPaidInput.parent('td').parent('tr').removeClass("unpaid").addClass("paid");
 					} else {

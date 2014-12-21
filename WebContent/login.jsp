@@ -19,7 +19,7 @@
 			method="post">
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="username">نام کاربری یا ایمیل</label>
+					<label for="username" class="required">نام کاربری یا ایمیل</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="username" name="username" type="text" autofocus="autofocus" />
@@ -28,7 +28,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="password">رمز عبور</label>
+					<label for="password" class="required">رمز عبور</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="password" name="password" type="password" />

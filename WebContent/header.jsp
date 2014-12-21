@@ -54,6 +54,9 @@
 				<a href="<%=request.getContextPath()%>/Users.showAll">لیست
 					کاربران</a>
 			</div>
+			<div class='main-menu-item'>
+				<a href="<%=request.getContextPath()%>/Email.sendEmail">ارسال ایمیل</a>
+			</div>
 			<%
 				} else {
 			%>

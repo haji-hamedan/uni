@@ -64,6 +64,11 @@ label{
 	line-height: 2.4rem;
 }
 
+.required::after{
+	content: "*";
+	color: red;
+	font-size: 1.5em;
+}
 h1,h2,h3,h4,h5,h6{
 	margin-top: 0.4em;
 	margin-bottom: 0.2em;

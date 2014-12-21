@@ -31,7 +31,7 @@
 			method="post" autocomplete="off">
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="username">نام کاربری</label>
+					<label for="username" class="required">نام کاربری</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="username" name="username" type="text" autofocus="autofocus" value="<%= user.getUsername() %>" />
@@ -40,7 +40,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="email">ایمیل</label>
+					<label for="email" class="required">ایمیل</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="email" name="email" type="text" value="<%= user.getEmail() %>" />
@@ -49,7 +49,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="first_name">نام</label>
+					<label for="first_name" class="required">نام</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="first_name" name="first_name" type="text" value="<%= user.getFirstName() %>" />
@@ -58,7 +58,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="last_name">نام خانوادگی</label>
+					<label for="last_name" class="required">نام خانوادگی</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="last_name" name="last_name" type="text" value="<%= user.getLastName() %>" />
@@ -67,7 +67,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="mobile">موبایل</label>
+					<label for="mobile" class="required">موبایل</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="mobile" name="mobile" type="text" value="<%= user.getMobile() %>" />
@@ -88,7 +88,7 @@
 			<div class="row">
 				<div
 					class="large-5 large-offset-2 medium-5 medium-offset-2 small-8 small-offset-4 columns">
-					<input id="submit" class="button" type="submit" value="ثبت" />
+					<input id="submit" class="button" type="submit" value="ویرایش" />
 				</div>
 				<div class="columns"></div>
 			</div>

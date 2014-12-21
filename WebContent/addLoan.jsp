@@ -19,7 +19,7 @@
 			method="post">
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="title">عنوان وام</label>
+					<label for="title" class="required">عنوان وام</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="title" name="title" type="text" autofocus="autofocus" />
@@ -28,7 +28,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="amount">مقدار وام</label>
+					<label for="amount" class="required">مقدار وام</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<div class="row collapse">
@@ -45,7 +45,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="interestRate">نرخ بهره</label>
+					<label for="interestRate" class="required">نرخ بهره</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<div class="row collapse">
@@ -61,7 +61,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="paymentCount">تعداد اقساط</label>
+					<label for="paymentCount" class="required">تعداد اقساط</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="paymentCount" name="paymentCount" type="text" />
@@ -70,7 +70,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="paymentFrequency">بازه پرداخت اقساط</label>
+					<label for="paymentFrequency" class="required">بازه پرداخت اقساط</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<select id="paymentFrequency" name="paymentFrequency">
@@ -82,7 +82,7 @@
 			</div>
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="firstPaymentDate">اولین سررسید</label>
+					<label for="firstPaymentDate" class="required">اولین سررسید</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="firstPaymentDate" name="firstPaymentDate" type="text"
@@ -94,7 +94,7 @@
 			<div class="row">
 				<div
 					class="large-5 large-offset-2 medium-5 medium-offset-2 small-8 small-offset-4 columns">
-					<input id="submit" class="button" type="submit" value="ثبت" />
+					<input id="submit" class="button" type="submit" value="ثبت وام" />
 				</div>
 				<div class="columns"></div>
 			</div>

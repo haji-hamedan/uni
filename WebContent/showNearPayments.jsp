@@ -101,7 +101,6 @@ $(document).ready(function() {
 		var isChecked = this.checked;
 		var paymentId = isPaidInput.attr('data-id');
 	
-		response.html('لطفاً منتظر بمانید...').fadeIn();
 		if (ajax_request) {
 			ajax_request.abort();
 		}
@@ -115,18 +114,15 @@ $(document).ready(function() {
 				isChecked: isChecked
 			},
 			success : function(data) {
-				if(data.status == "success"){
-					response.removeClass("error");
-				} else {
+				if(data.status != "success"){
 					response.addClass("error");	
-				}
-				
-				response.stop(true).fadeOut(function() {
-					response.html(data.msg);
-					response.fadeIn();
-				});
-				
-				if (data.status == "success") {
+					response.stop(true).fadeOut(function() {
+						response.html(data.msg);
+						response.fadeIn();
+					});
+				} else {
+					response.removeClass("error");
+					response.stop(true).fadeOut();
 					if(isChecked === true){
 						isPaidInput.parent('td').parent('tr').removeClass("unpaid").addClass("paid");
 					} else {

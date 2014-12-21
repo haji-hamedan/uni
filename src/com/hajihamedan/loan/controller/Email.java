@@ -28,6 +28,14 @@ import com.hajihamedan.loan.model.UserRepo;
 public class Email extends Controller {
 
 	public String sendEmail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		User currentUser = (User) request.getAttribute("currentUser");
+		if (currentUser == null || currentUser.getIsAdmin() == 0) {
+			request.setAttribute("pageTitle", "ارسال ایمیل");
+			request.setAttribute("statusMsg", "شما اجازه ی این کار را ندارید.");
+			return "sendEmail.jsp";
+		}
+
 		String statusMsg = "";
 		String subject = "سررسید های این هفته ی شما";
 		String emailContent;
@@ -35,7 +43,8 @@ public class Email extends Controller {
 		PaymentRepo paymentRepo = new PaymentRepo();
 
 		UserRepo userRepo = new UserRepo();
-		Vector<Domain> users = userRepo.loadAll();
+		String usersCondition = "isAdmin != 1";
+		Vector<Domain> users = userRepo.loadByCondition(usersCondition);
 
 		if (!users.isEmpty()) {
 			Enumeration<Domain> allUsers = users.elements();
@@ -53,7 +62,7 @@ public class Email extends Controller {
 
 				Vector<Domain> payments = null;
 				String condition = "userId = " + user.getUserId();
-				condition += " and payDate >= " + today + " and payDate <= " + week;
+				condition += " AND payDate >= " + today + " AND payDate <= " + week;
 				payments = paymentRepo.loadByCondition(condition, "payDate", "asc");
 
 				if (payments.isEmpty()) {

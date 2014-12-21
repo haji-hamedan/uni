@@ -25,7 +25,7 @@
 			
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="old-password">رمز عبور فعلی</label>
+					<label for="old-password" class="required">رمز عبور فعلی</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="old-password" name="old-password" type="password" autofocus="autofocus" value="" />
@@ -35,7 +35,7 @@
 			
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="new-password">رمز عبور جدید</label>
+					<label for="new-password" class="required">رمز عبور جدید</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="new-password" name="new-password" type="password" value="" />
@@ -45,7 +45,7 @@
 			
 			<div class="row">
 				<div class="large-2 medium-2 small-4 columns">
-					<label for="confirm-new-password">تکرار رمز عبور جدید</label>
+					<label for="confirm-new-password" class="required">تکرار رمز عبور جدید</label>
 				</div>
 				<div class="large-5 medium-5 small-8 columns">
 					<input id="confirm-new-password" name="confirm-new-password" type="password" value="" />
