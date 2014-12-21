@@ -134,7 +134,13 @@
 					
 					response.stop(true).fadeOut(function() {
 						response.html(data.msg);
-						response.fadeIn();
+						response.fadeIn(function(){
+							if(data.status == 'success'){
+								setTimeout(function(){
+									window.location.href = '<%=request.getContextPath()%>/Loans.showAll';
+								}, 1000);
+							}
+						});
 					});
 				},
 				error : function() {

@@ -55,7 +55,7 @@ public class Email extends Controller {
 
 				Calendar calendar = Calendar.getInstance();
 				// java calendar start from 0 instead of 1!
-				calendar.add(calendar.MONTH, 1);
+				calendar.add(Calendar.MONTH, 1);
 				long today = calendar.getTimeInMillis();
 				calendar.add(Calendar.DATE, days);
 				long week = calendar.getTimeInMillis();

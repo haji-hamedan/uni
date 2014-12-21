@@ -112,7 +112,7 @@ public class Loans extends Controller {
 			loans = loanRepo.loadAll();
 		} else {
 			String condition = "userId = " + currentUser.getUserId();
-			loans = loanRepo.loadByCondition(condition);
+			loans = loanRepo.loadByCondition(condition, "loanId", "DESC");
 		}
 
 		request.setAttribute("pageTitle", "مشاهده وام ها");

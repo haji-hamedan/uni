@@ -114,7 +114,7 @@
 			<div class="row">
 				<div
 					class="large-5 large-offset-2 medium-5 medium-offset-2 small-8 small-offset-4 columns">
-					<input id="submit" class="button" type="submit" value="ثبت" />
+					<input id="submit" class="button" type="submit" value="ویرایش" />
 				</div>
 				<div class="columns"></div>
 			</div>

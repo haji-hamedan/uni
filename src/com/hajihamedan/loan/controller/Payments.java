@@ -53,7 +53,7 @@ public class Payments extends Controller {
 
 		Calendar calendar = Calendar.getInstance();
 		// java calendar start from 0 instead of 1!
-		calendar.add(calendar.MONTH, 1);
+		calendar.add(Calendar.MONTH, 1);
 
 		long today = calendar.getTimeInMillis();
 
