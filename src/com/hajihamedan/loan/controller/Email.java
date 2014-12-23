@@ -41,8 +41,8 @@ public class Email extends Controller {
 		String emailContent;
 
 		PaymentRepo paymentRepo = new PaymentRepo();
-
 		UserRepo userRepo = new UserRepo();
+
 		String usersCondition = "isAdmin != 1";
 		Vector<Domain> users = userRepo.loadByCondition(usersCondition);
 
